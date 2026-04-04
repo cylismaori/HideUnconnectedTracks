@@ -27,12 +27,12 @@ internal static class EnumBitMaskExtensions
 		return Enum.GetValues(typeof(T)).Cast<T>().Max();
 	}
 
-	internal static void SetBit(this ref byte b, int idx)
+	internal static void SetBit(this byte b, int idx)
 	{
 		b |= (byte)(1 << idx);
 	}
 
-	internal static void ClearBit(this ref byte b, int idx)
+	internal static void ClearBit(this byte b, int idx)
 	{
 		b &= (byte)(~(1 << idx));
 	}
@@ -42,7 +42,7 @@ internal static class EnumBitMaskExtensions
 		return (b & (byte)(1 << idx)) != 0;
 	}
 
-	internal static void SetBit(this ref byte b, int idx, bool value)
+	internal static void SetBit(this byte b, int idx, bool value)
 	{
 		if (value)
 		{
@@ -130,7 +130,7 @@ internal static class EnumBitMaskExtensions
 		}
 	}
 
-	public static void SetFlagsRef<T>(this ref T value, T flags, bool on) where T : struct, IConvertible
+	public static void SetFlagsRef<T>(this T value, T flags, bool on) where T : struct, IConvertible
 	{
 		value = EnumExtensions.SetFlags<T>(value, flags, on);
 	}

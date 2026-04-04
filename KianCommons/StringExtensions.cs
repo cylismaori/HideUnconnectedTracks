@@ -80,7 +80,7 @@ internal static class StringExtensions
 	{
 		//IL_0002: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0007: Unknown result type (might be due to invalid IL or missing references)
-		return ((object)((InstanceID)(ref instanceID)).Type/*cast due to .constrained prefix*/).ToString() + ":" + ((InstanceID)(ref instanceID)).Index;
+		return ((object)((InstanceID)(instanceID)).Type/*cast due to .constrained prefix*/).ToString() + ":" + ((InstanceID)(instanceID)).Index;
 	}
 
 	internal static string ToSTR(this object obj)
@@ -158,7 +158,7 @@ internal static class StringExtensions
 
 	public static string ToSTR(this Bezier2 bezier, string format)
 	{
-		return ((Vector2)(ref bezier.a)).ToString(format) + ", " + ((Vector2)(ref bezier.b)).ToString(format) + ", " + ((Vector2)(ref bezier.c)).ToString(format) + ", " + ((Vector2)(ref bezier.d)).ToString(format);
+		return ((Vector2)(bezier.a)).ToString(format) + ", " + ((Vector2)(bezier.b)).ToString(format) + ", " + ((Vector2)(bezier.c)).ToString(format) + ", " + ((Vector2)(bezier.d)).ToString(format);
 	}
 
 	internal static string ToSTR(this string str)
@@ -177,7 +177,7 @@ internal static class StringExtensions
 	internal static string ToSTR(this InstanceID instanceID)
 	{
 		//IL_0007: Unknown result type (might be due to invalid IL or missing references)
-		return $"{((InstanceID)(ref instanceID)).Type}:{((InstanceID)(ref instanceID)).Index}";
+		return $"{((InstanceID)(instanceID)).Type}:{((InstanceID)(instanceID)).Index}";
 	}
 
 	internal static string ToSTR(this KeyValuePair<InstanceID, InstanceID> map)

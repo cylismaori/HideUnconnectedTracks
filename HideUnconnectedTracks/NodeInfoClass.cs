@@ -66,11 +66,11 @@ public struct NodeInfoClass
 		}
 		if ((int)RequiredFlags > 0)
 		{
-			text = text + "|RequiredFlags=" + ((object)System.Runtime.CompilerServices.Unsafe.As<Flags, Flags>(ref RequiredFlags)/*cast due to .constrained prefix*/).ToString();
+			text = text + "|RequiredFlags=" + ((object)System.Runtime.CompilerServices.Unsafe.As<Flags, Flags>(RequiredFlags)/*cast due to .constrained prefix*/).ToString();
 		}
 		if ((int)ForbiddenFlags > 0)
 		{
-			text = text + "|ForbiddenFlags=" + ((object)System.Runtime.CompilerServices.Unsafe.As<Flags, Flags>(ref ForbiddenFlags)/*cast due to .constrained prefix*/).ToString();
+			text = text + "|ForbiddenFlags=" + ((object)System.Runtime.CompilerServices.Unsafe.As<Flags, Flags>(ForbiddenFlags)/*cast due to .constrained prefix*/).ToString();
 		}
 		if (RequireSurfaceMaps)
 		{

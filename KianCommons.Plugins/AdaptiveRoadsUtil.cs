@@ -9,11 +9,11 @@ internal static class AdaptiveRoadsUtil
 {
 	private delegate bool IsAdaptive(NetInfo info);
 
-	private delegate VehicleType NodeVehicleTypes(Node node);
+	private delegate VehicleInfo.VehicleType NodeVehicleTypes(NetInfo.Node node);
 
-	private delegate LaneType NodeLaneTypes(Node node);
+	private delegate NetInfo.LaneType NodeLaneTypes(NetInfo.Node node);
 
-	private delegate bool HideBrokenMedians(Node node);
+	private delegate bool HideBrokenMedians(NetInfo.Node node);
 
 	private delegate bool GetSharpCorners(NetInfo info);
 
@@ -37,16 +37,10 @@ internal static class AdaptiveRoadsUtil
 
 	static AdaptiveRoadsUtil()
 	{
-		//IL_0013: Unknown result type (might be due to invalid IL or missing references)
-		//IL_001d: Expected O, but got Unknown
-		//IL_002a: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0034: Expected O, but got Unknown
-		//IL_0041: Unknown result type (might be due to invalid IL or missing references)
-		//IL_004b: Expected O, but got Unknown
 		Init();
-		Singleton<PluginManager>.instance.eventPluginsStateChanged += new PluginsChangedHandler(Init);
-		Singleton<PluginManager>.instance.eventPluginsChanged += new PluginsChangedHandler(Init);
-		Singleton<LoadingManager>.instance.m_levelPreLoaded += new LevelPreLoadedHandler(Init);
+		Singleton<PluginManager>.instance.eventPluginsStateChanged += new PluginManager.PluginsChangedHandler(Init);
+		Singleton<PluginManager>.instance.eventPluginsChanged += new PluginManager.PluginsChangedHandler(Init);
+		Singleton<LoadingManager>.instance.m_levelPreLoaded += new LoadingManager.LevelPreLoadedHandler(Init);
 	}
 
 	private static void Init()

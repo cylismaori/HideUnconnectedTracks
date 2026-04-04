@@ -56,7 +56,7 @@ internal struct CubicBezier3(ControlPoint3 start, ControlPoint3 end)
 			Point = (closestPoint + closestPoint2) * 0.5f
 		};
 		Vector3 val = closestPoint2 - closestPoint;
-		result.Dir = ((Vector3)(ref val)).normalized;
+		result.Dir = ((Vector3)(val)).normalized;
 		return result;
 	}
 }

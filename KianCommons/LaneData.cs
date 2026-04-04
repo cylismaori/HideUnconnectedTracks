@@ -14,7 +14,7 @@ public struct LaneData
 	{
 		get
 		{
-			NetInfo info = ((NetSegment)(ref Segment)).Info;
+			NetInfo info = ((NetSegment)(Segment)).Info;
 			object result;
 			if (info == null)
 			{
@@ -37,9 +37,9 @@ public struct LaneData
 
 	public readonly ushort SegmentID => Lane.m_segment;
 
-	public readonly ref NetSegment Segment => ref SegmentID.ToSegment();
+	public readonly NetSegment Segment => SegmentID.ToSegment();
 
-	public readonly ref NetLane Lane => ref LaneID.ToLane();
+	public readonly NetLane Lane => LaneID.ToLane();
 
 	public readonly Flags Flags
 	{
@@ -84,7 +84,7 @@ public struct LaneData
 		if (!startNode)
 		{
 			Bezier3 bezier = Bezier;
-			result = ((Bezier3)(ref bezier)).Invert();
+			result = ((Bezier3)(bezier)).Invert();
 		}
 		else
 		{
@@ -105,11 +105,11 @@ public struct LaneData
 		//IL_0091: Unknown result type (might be due to invalid IL or missing references)
 		try
 		{
-			return $"LaneData:[segment:{SegmentID} segmentInfo:{((NetSegment)(ref Segment)).Info} node:{HeadNodeID} laneID:{LaneID} Index={LaneIndex} {LaneInfo?.m_laneType} {LaneInfo?.m_vehicleType}]";
+			return $"LaneData:[segment:{SegmentID} segmentInfo:{((NetSegment)(Segment)).Info} node:{HeadNodeID} laneID:{LaneID} Index={LaneIndex} {LaneInfo?.m_laneType} {LaneInfo?.m_vehicleType}]";
 		}
 		catch (NullReferenceException)
 		{
-			return $"LaneData:[segment:{SegmentID} segmentInfo:{((NetSegment)(ref Segment)).Info} node:{HeadNodeID} lane ID:{LaneID} null";
+			return $"LaneData:[segment:{SegmentID} segmentInfo:{((NetSegment)(Segment)).Info} node:{HeadNodeID} lane ID:{LaneID} null";
 		}
 	}
 }

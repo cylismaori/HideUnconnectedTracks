@@ -14,7 +14,7 @@ public struct LaneDataIterator(ushort segmentID, bool? startNode = null, LaneTyp
 
 	private VehicleType? vehicleType_ = vehicleType;
 
-	private int nLanes_ = ((NetSegment)(ref segmentID.ToSegment())).Info.m_lanes.Length;
+	private int nLanes_ = ((NetSegment)(segmentID.ToSegment())).Info.m_lanes.Length;
 
 	private LaneData current_ = default(LaneData);
 

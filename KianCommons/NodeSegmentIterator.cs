@@ -20,7 +20,7 @@ public struct NodeSegmentIterator(ushort nodeId) : IEnumerable<ushort>, IEnumera
 	{
 		while (i_ < 8)
 		{
-			segmentId_ = ((NetNode)(ref nodeId_.ToNode())).GetSegment(i_++);
+			segmentId_ = ((NetNode)(nodeId_.ToNode())).GetSegment(i_++);
 			if (segmentId_ != 0)
 			{
 				return true;

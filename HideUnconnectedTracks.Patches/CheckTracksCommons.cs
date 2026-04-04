@@ -14,23 +14,23 @@ public static class CheckTracksCommons
 {
 	private static MethodInfo mShouldConnectTracks => typeof(CheckTracksCommons).GetMethod("ShouldConnectTracks", true);
 
-	private static MethodInfo mCheckRenderDistance => typeof(CameraInfo).GetMethod("CheckRenderDistance", true);
+	private static MethodInfo mCheckRenderDistance => typeof(RenderManager.CameraInfo).GetMethod("CheckRenderDistance", true);
 
 	private static FieldInfo fNodes => typeof(NetInfo).GetField("m_nodes") ?? throw new Exception("fNodes is null");
 
-	private static FieldInfo fDataVector0 => typeof(Instance).GetField("m_dataVector0") ?? throw new Exception("fDataVector0 is null");
+	private static FieldInfo fDataVector0 => typeof(RenderManager.Instance).GetField("m_dataVector0") ?? throw new Exception("fDataVector0 is null");
 
-	public static bool ShouldConnectTracks(ushort nodeId, ref Instance data, ref Node nodeInfo, ref Vector4 dataVector0)
+	public static bool ShouldConnectTracks(ushort nodeId, RenderManager.Instance data, NetInfo.Node nodeInfo, Vector4 dataVector0)
 	{
-		ushort segment = ((NetNode)(ref nodeId.ToNode())).GetSegment(data.m_dataInt0 & 7);
+		ushort segment = ((NetNode)(nodeId.ToNode())).GetSegment(data.m_dataInt0 & 7);
 		int num = data.m_dataInt0 >> 4;
-		ushort segment2 = ((NetNode)(ref nodeId.ToNode())).GetSegment(num);
+		ushort segment2 = ((NetNode)(nodeId.ToNode())).GetSegment(num);
 		if (TMPEUtil.Exists)
 		{
 			try
 			{
 				bool flipMesh;
-				bool result = DirectConnectUtil.DetermineDirectConnect(segment, segment2, nodeId, ref nodeInfo, out flipMesh);
+				bool result = DirectConnectUtil.DetermineDirectConnect(segment, segment2, nodeId, nodeInfo, out flipMesh);
 				if (flipMesh)
 				{
 					dataVector0.x = 0f - dataVector0.x;
@@ -61,7 +61,7 @@ public static class CheckTracksCommons
 		int loc_cameraInfo = method.GetArgLoc("cameraInfo");
 		startIndex = codes.Search((CodeInstruction _c) => CodeInstructionExtensions.IsLdarg(_c, (int?)loc_cameraInfo), startIndex, -1);
 		Label? continueIndex = null;
-		codes.Search((CodeInstruction _c) => CodeInstructionExtensions.Branches(_c, ref continueIndex), startIndex, -1);
+		codes.Search((CodeInstruction _c) => CodeInstructionExtensions.Branches(_c, out continueIndex), startIndex, -1);
 		CodeInstruction[] insertion = (CodeInstruction[])(object)new CodeInstruction[6]
 		{
 			TranspilerUtils.GetLDArg(method, "nodeID"),

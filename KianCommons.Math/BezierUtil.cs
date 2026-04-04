@@ -21,12 +21,12 @@ internal static class BezierUtil
 		Vector3 val;
 		for (num2 = step; num2 < 1f; num2 += step)
 		{
-			val = ((Bezier3)(ref beizer)).Position(num2) - ((Bezier3)(ref beizer)).Position(num2 - step);
-			float magnitude = ((Vector3)(ref val)).magnitude;
+			val = ((Bezier3)(beizer)).Position(num2) - ((Bezier3)(beizer)).Position(num2 - step);
+			float magnitude = ((Vector3)(val)).magnitude;
 			num += magnitude;
 		}
-		val = beizer.d - ((Bezier3)(ref beizer)).Position(num2 - step);
-		float magnitude2 = ((Vector3)(ref val)).magnitude;
+		val = beizer.d - ((Bezier3)(beizer)).Position(num2 - step);
+		float magnitude2 = ((Vector3)(val)).magnitude;
 		return num + magnitude2;
 	}
 
@@ -44,12 +44,12 @@ internal static class BezierUtil
 			{
 				num2 = 1f;
 			}
-			Vector3 val = ((Bezier3)(ref beizer)).Position(num2) - ((Bezier3)(ref beizer)).Position(num2 - step);
-			float magnitude = ((Vector3)(ref val)).magnitude;
+			Vector3 val = ((Bezier3)(beizer)).Position(num2) - ((Bezier3)(beizer)).Position(num2 - step);
+			float magnitude = ((Vector3)(val)).magnitude;
 			num += magnitude;
 			if (num >= distance)
 			{
-				return ((Bezier3)(ref beizer)).Travel(num2, distance - num);
+				return ((Bezier3)(beizer)).Travel(num2, distance - num);
 			}
 			if (num2 >= 1f)
 			{
@@ -85,10 +85,10 @@ internal static class BezierUtil
 		//IL_0028: Unknown result type (might be due to invalid IL or missing references)
 		//IL_002d: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0030: Unknown result type (might be due to invalid IL or missing references)
-		float num = ((Bezier3)(ref beizer)).Travel(0f, distance);
-		Vector3 val = ((Bezier3)(ref beizer)).Tangent(num);
-		tangent = ((Vector3)(ref val)).normalized;
-		return ((Bezier3)(ref beizer)).Position(num);
+		float num = ((Bezier3)(beizer)).Travel(0f, distance);
+		Vector3 val = ((Bezier3)(beizer)).Tangent(num);
+		tangent = ((Vector3)(val)).normalized;
+		return ((Bezier3)(beizer)).Position(num);
 	}
 
 	public static Vector2 Travel2(this Bezier2 beizer, float distance, out Vector2 tangent)
@@ -116,13 +116,13 @@ internal static class BezierUtil
 		if (beizer.IsStraight())
 		{
 			val = beizer.d - beizer.a;
-			tangent = ((Vector2)(ref val)).normalized;
+			tangent = ((Vector2)(val)).normalized;
 			return beizer.TravelStraight(distance);
 		}
-		float num = ((Bezier2)(ref beizer)).Travel(0f, distance);
-		val = ((Bezier2)(ref beizer)).Tangent(num);
-		tangent = ((Vector2)(ref val)).normalized;
-		return ((Bezier2)(ref beizer)).Position(num);
+		float num = ((Bezier2)(beizer)).Travel(0f, distance);
+		val = ((Bezier2)(beizer)).Tangent(num);
+		tangent = ((Vector2)(val)).normalized;
+		return ((Bezier2)(beizer)).Position(num);
 	}
 
 	private static Vector2 TravelStraight(this Bezier2 beizer, float length)
@@ -170,18 +170,18 @@ internal static class BezierUtil
 		if (bezier.IsStraight())
 		{
 			val = bezier.d - bezier.a;
-			return ((Vector2)(ref val)).magnitude;
+			return ((Vector2)(val)).magnitude;
 		}
 		float num = 0f;
 		float num2;
 		for (num2 = step; num2 < 1f; num2 += step)
 		{
-			val = ((Bezier2)(ref bezier)).Position(num2) - ((Bezier2)(ref bezier)).Position(num2 - step);
-			float magnitude = ((Vector2)(ref val)).magnitude;
+			val = ((Bezier2)(bezier)).Position(num2) - ((Bezier2)(bezier)).Position(num2 - step);
+			float magnitude = ((Vector2)(val)).magnitude;
 			num += magnitude;
 		}
-		val = bezier.d - ((Bezier2)(ref bezier)).Position(num2 - step);
-		float magnitude2 = ((Vector2)(ref val)).magnitude;
+		val = bezier.d - ((Bezier2)(bezier)).Position(num2 - step);
+		float magnitude2 = ((Vector2)(val)).magnitude;
 		num += magnitude2;
 		if (MathUtil.EqualAprox(num, 0f))
 		{
@@ -212,16 +212,16 @@ internal static class BezierUtil
 		if (bezier.IsStraight())
 		{
 			val = point - bezier.a;
-			return ((Vector2)(ref val)).magnitude;
+			return ((Vector2)(val)).magnitude;
 		}
 		float num = 0f;
 		for (float num2 = step; num2 <= 1.001f; num2 += step)
 		{
-			Vector2 val2 = ((Bezier2)(ref bezier)).Position(num2 - step);
-			val = ((Bezier2)(ref bezier)).Position(num2) - val2;
-			float magnitude = ((Vector2)(ref val)).magnitude;
+			Vector2 val2 = ((Bezier2)(bezier)).Position(num2 - step);
+			val = ((Bezier2)(bezier)).Position(num2) - val2;
+			float magnitude = ((Vector2)(val)).magnitude;
 			val = point - val2;
-			float magnitude2 = ((Vector2)(ref val)).magnitude;
+			float magnitude2 = ((Vector2)(val)).magnitude;
 			if (magnitude2 <= magnitude + 0.001f)
 			{
 				return num + magnitude2;
@@ -288,7 +288,7 @@ internal static class BezierUtil
 		//IL_006f: Unknown result type (might be due to invalid IL or missing references)
 		Vector3 v = default(Vector3);
 		Vector3 v2 = default(Vector3);
-		NetSegment.CalculateMiddlePoints(startPos.ToCS3D(), startDir.ToCS3D(), endPos.ToCS3D(), endDir.ToCS3D(), false, false, ref v, ref v2);
+		NetSegment.CalculateMiddlePoints(startPos.ToCS3D(), startDir.ToCS3D(), endPos.ToCS3D(), endDir.ToCS3D(), false, false, v, v2);
 		return new Bezier2
 		{
 			a = startPos,
@@ -318,7 +318,7 @@ internal static class BezierUtil
 		//IL_003f: Unknown result type (might be due to invalid IL or missing references)
 		Vector3 b = default(Vector3);
 		Vector3 c = default(Vector3);
-		NetSegment.CalculateMiddlePoints(startPos, startDir, endPos, endDir, startSmooth, endSmooth, ref b, ref c);
+		NetSegment.CalculateMiddlePoints(startPos, startDir, endPos, endDir, startSmooth, endSmooth, b, c);
 		return new Bezier3
 		{
 			a = startPos,
@@ -328,7 +328,7 @@ internal static class BezierUtil
 		};
 	}
 
-	public static void NormalTangent(this ref Bezier2 bezier, float t, bool lefSide, out Vector2 normal, out Vector2 tangent)
+	public static void NormalTangent(this Bezier2 bezier, float t, bool lefSide, out Vector2 normal, out Vector2 tangent)
 	{
 		//IL_0019: Unknown result type (might be due to invalid IL or missing references)
 		//IL_001f: Unknown result type (might be due to invalid IL or missing references)
@@ -356,9 +356,9 @@ internal static class BezierUtil
 		}
 		else
 		{
-			tangent = ((Bezier2)(ref bezier)).Tangent(t);
+			tangent = ((Bezier2)(bezier)).Tangent(t);
 		}
-		((Vector2)(ref tangent)).Normalize();
+		((Vector2)(tangent)).Normalize();
 		normal = tangent.Rotate90CW();
 		if (lefSide)
 		{
@@ -366,7 +366,7 @@ internal static class BezierUtil
 		}
 	}
 
-	public static void NormalTangent(this ref Bezier3 bezier, float t, bool lefSide, out Vector3 normal, out Vector3 tangent)
+	public static void NormalTangent(this Bezier3 bezier, float t, bool lefSide, out Vector3 normal, out Vector3 tangent)
 	{
 		//IL_0019: Unknown result type (might be due to invalid IL or missing references)
 		//IL_001f: Unknown result type (might be due to invalid IL or missing references)
@@ -394,9 +394,9 @@ internal static class BezierUtil
 		}
 		else
 		{
-			tangent = ((Bezier3)(ref bezier)).Tangent(t);
+			tangent = ((Bezier3)(bezier)).Tangent(t);
 		}
-		((Vector3)(ref tangent)).Normalize();
+		((Vector3)(tangent)).Normalize();
 		normal = tangent.NormalCW();
 		if (lefSide)
 		{
@@ -404,7 +404,7 @@ internal static class BezierUtil
 		}
 	}
 
-	public static float GetClosestT(this ref Bezier3 bezier, Vector3 pos)
+	public static float GetClosestT(this Bezier3 bezier, Vector3 pos)
 	{
 		//IL_000e: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0013: Unknown result type (might be due to invalid IL or missing references)
@@ -433,8 +433,8 @@ internal static class BezierUtil
 		float num4 = default(float);
 		for (int i = 1; i <= 16; i++)
 		{
-			Vector3 val2 = ((Bezier3)(ref bezier)).Position((float)i / 16f);
-			float num3 = Segment3.DistanceSqr(val, val2, pos, ref num4);
+			Vector3 val2 = ((Bezier3)(bezier)).Position((float)i / 16f);
+			float num3 = Segment3.DistanceSqr(val, val2, pos, num4);
 			if (num3 < num)
 			{
 				num = num3;
@@ -447,11 +447,11 @@ internal static class BezierUtil
 		float num9 = default(float);
 		for (int j = 0; j < 4; j++)
 		{
-			Vector3 val3 = ((Bezier3)(ref bezier)).Position(Mathf.Max(0f, num2 - num5));
-			Vector3 val4 = ((Bezier3)(ref bezier)).Position(num2);
-			Vector3 val5 = ((Bezier3)(ref bezier)).Position(Mathf.Min(1f, num2 + num5));
-			float num6 = Segment3.DistanceSqr(val3, val4, pos, ref num7);
-			float num8 = Segment3.DistanceSqr(val4, val5, pos, ref num9);
+			Vector3 val3 = ((Bezier3)(bezier)).Position(Mathf.Max(0f, num2 - num5));
+			Vector3 val4 = ((Bezier3)(bezier)).Position(num2);
+			Vector3 val5 = ((Bezier3)(bezier)).Position(Mathf.Min(1f, num2 + num5));
+			float num6 = Segment3.DistanceSqr(val3, val4, pos, num7);
+			float num8 = Segment3.DistanceSqr(val4, val5, pos, num9);
 			num2 = ((!(num6 < num8)) ? Mathf.Min(1f, num2 + num5 * num9) : Mathf.Max(0f, num2 - num5 * (1f - num7)));
 			num5 *= 0.5f;
 		}
@@ -583,7 +583,7 @@ internal static class BezierUtil
 		//IL_0024: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0028: Unknown result type (might be due to invalid IL or missing references)
 		float closestT = bezier.GetClosestT(pos);
-		Vector3 val = ((Bezier3)(ref bezier)).Position(closestT);
+		Vector3 val = ((Bezier3)(bezier)).Position(closestT);
 		Vector3 val2 = val - pos;
 		return val + val2;
 	}
@@ -664,7 +664,7 @@ internal static class BezierUtil
 		//IL_00e4: Unknown result type (might be due to invalid IL or missing references)
 		//IL_00e8: Unknown result type (might be due to invalid IL or missing references)
 		Vector3 val = bezier.d - bezier.a;
-		float magnitude = ((Vector3)(ref val)).magnitude;
+		float magnitude = ((Vector3)(val)).magnitude;
 		Vector3 val2 = bezier.b - bezier.a;
 		bezier.a = CalcShift(bezier.a, val2, shift);
 		bezier.a.y += vshift;
@@ -672,7 +672,7 @@ internal static class BezierUtil
 		bezier.d = CalcShift(bezier.d, -val3, shift);
 		bezier.d.y += vshift;
 		val = bezier.d - bezier.a;
-		float magnitude2 = ((Vector3)(ref val)).magnitude;
+		float magnitude2 = ((Vector3)(val)).magnitude;
 		float num = magnitude2 / magnitude;
 		bezier.b = bezier.a + val2 * num;
 		bezier.c = bezier.d + val3 * num;

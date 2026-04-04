@@ -17,11 +17,11 @@ internal struct Vector2D
 	{
 		get
 		{
-			return ((Vector2)(ref _vector2))[index];
+			return ((Vector2)(_vector2))[index];
 		}
 		set
 		{
-			((Vector2)(ref _vector2))[index] = value;
+			((Vector2)(_vector2))[index] = value;
 		}
 	}
 
@@ -37,11 +37,11 @@ internal struct Vector2D
 
 	public static Vector2D right => Vector2.right;
 
-	public float magnitude => ((Vector2)(ref _vector2)).magnitude;
+	public float magnitude => ((Vector2)(_vector2)).magnitude;
 
-	public float sqrMagnitude => ((Vector2)(ref _vector2)).sqrMagnitude;
+	public float sqrMagnitude => ((Vector2)(_vector2)).sqrMagnitude;
 
-	public Vector2D normalized => ((Vector2)(ref _vector2)).normalized;
+	public Vector2D normalized => ((Vector2)(_vector2)).normalized;
 
 	public Vector2D(float x, float z)
 	{
@@ -59,7 +59,7 @@ internal struct Vector2D
 
 	public void Set(float newX, float newY)
 	{
-		((Vector2)(ref _vector2)).Set(newX, newY);
+		((Vector2)(_vector2)).Set(newX, newY);
 	}
 
 	public Vector3D ToVector3D(float h = 0f)
@@ -90,7 +90,7 @@ internal struct Vector2D
 
 	public override int GetHashCode()
 	{
-		return ((object)System.Runtime.CompilerServices.Unsafe.As<Vector2, Vector2>(ref _vector2)/*cast due to .constrained prefix*/).GetHashCode();
+		return ((object)System.Runtime.CompilerServices.Unsafe.As<Vector2, Vector2>(_vector2)/*cast due to .constrained prefix*/).GetHashCode();
 	}
 
 	public override string ToString()

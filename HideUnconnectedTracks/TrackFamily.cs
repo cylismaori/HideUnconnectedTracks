@@ -97,7 +97,7 @@ public class TrackFamily
 				{
 					continue;
 				}
-				Assertion.Assert(EnumExtensions.IsFlagSet<ConnectGroup>(val.m_connectGroup, (ConnectGroup)71176191), "unexpected nodeInfo.m_connectGroup=" + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(ref info.m_nodeConnectGroups)/*cast due to .constrained prefix*/).ToString());
+				Assertion.Assert(EnumExtensions.IsFlagSet<ConnectGroup>(val.m_connectGroup, (ConnectGroup)71176191), "unexpected nodeInfo.m_connectGroup=" + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(info.m_nodeConnectGroups)/*cast due to .constrained prefix*/).ToString());
 				int usedIndex = NodeInfoClassMetaData.Count(hashSet, val);
 				NodeInfoClass nodeInfoClass = new NodeInfoClass(val, usedIndex, inconsistencyLevel);
 				hashSet.Add(new NodeInfoClassMetaData
@@ -111,26 +111,26 @@ public class TrackFamily
 				{
 					if (!EnumExtensions.IsFlagSet<ConnectGroup>(val.m_connectGroup, (ConnectGroup)67895699))
 					{
-						throw new Exception("(DOUBLE) unexpected nodeInfo.m_connectGroup=" + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(ref val.m_connectGroup)/*cast due to .constrained prefix*/).ToString());
+						throw new Exception("(DOUBLE) unexpected nodeInfo.m_connectGroup=" + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(val.m_connectGroup)/*cast due to .constrained prefix*/).ToString());
 					}
-					Assertion.Assert((int)val2 == 0, "(DOUBLE to DOUBLE)expected oneway=0 got " + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(ref info.m_connectGroup)/*cast due to .constrained prefix*/).ToString());
+					Assertion.Assert((int)val2 == 0, "(DOUBLE to DOUBLE)expected oneway=0 got " + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(info.m_connectGroup)/*cast due to .constrained prefix*/).ToString());
 					orCreateSubFamily.TwoWayDouble = val;
 				}
 				else if (EnumExtensions.IsFlagSet<ConnectGroup>(info.m_connectGroup, (ConnectGroup)3148332))
 				{
 					if ((int)val2 == 4096)
 					{
-						Assertion.Assert(EnumExtensions.IsFlagSet<ConnectGroup>(val.m_connectGroup, (ConnectGroup)67895699), "(OnewayStart) unexpected nodeInfo.m_connectGroup=" + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(ref info.m_connectGroup)/*cast due to .constrained prefix*/).ToString());
+						Assertion.Assert(EnumExtensions.IsFlagSet<ConnectGroup>(val.m_connectGroup, (ConnectGroup)67895699), "(OnewayStart) unexpected nodeInfo.m_connectGroup=" + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(info.m_connectGroup)/*cast due to .constrained prefix*/).ToString());
 						orCreateSubFamily.OneWayStart = val;
 					}
 					else if ((int)val2 == 8192)
 					{
-						Assertion.Assert(EnumExtensions.IsFlagSet<ConnectGroup>(val.m_connectGroup, (ConnectGroup)67895699), "(OnewayEnd) unexpected nodeInfo.m_connectGroup=" + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(ref info.m_connectGroup)/*cast due to .constrained prefix*/).ToString());
+						Assertion.Assert(EnumExtensions.IsFlagSet<ConnectGroup>(val.m_connectGroup, (ConnectGroup)67895699), "(OnewayEnd) unexpected nodeInfo.m_connectGroup=" + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(info.m_connectGroup)/*cast due to .constrained prefix*/).ToString());
 						orCreateSubFamily.OneWayEnd = val;
 					}
 					else if ((int)val2 == 12288)
 					{
-						Assertion.Assert(EnumExtensions.IsFlagSet<ConnectGroup>(val.m_connectGroup, (ConnectGroup)3148332), "(Oneway) unexpected nodeInfo.m_connectGroup=" + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(ref info.m_connectGroup)/*cast due to .constrained prefix*/).ToString());
+						Assertion.Assert(EnumExtensions.IsFlagSet<ConnectGroup>(val.m_connectGroup, (ConnectGroup)3148332), "(Oneway) unexpected nodeInfo.m_connectGroup=" + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(info.m_connectGroup)/*cast due to .constrained prefix*/).ToString());
 						orCreateSubFamily.OneWay = val;
 					}
 					else if (EnumExtensions.IsFlagSet<ConnectGroup>(val.m_connectGroup, (ConnectGroup)3148332))
@@ -142,9 +142,9 @@ public class TrackFamily
 				{
 					if (!EnumExtensions.IsFlagSet<ConnectGroup>(info.m_connectGroup, (ConnectGroup)132160))
 					{
-						throw new Exception("unexpected info.m_connectGroup=" + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(ref info.m_connectGroup)/*cast due to .constrained prefix*/).ToString());
+						throw new Exception("unexpected info.m_connectGroup=" + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(info.m_connectGroup)/*cast due to .constrained prefix*/).ToString());
 					}
-					Assertion.Assert((int)val2 == 0, "(STATION) expected oneway=0 got " + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(ref info.m_connectGroup)/*cast due to .constrained prefix*/).ToString());
+					Assertion.Assert((int)val2 == 0, "(STATION) expected oneway=0 got " + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(info.m_connectGroup)/*cast due to .constrained prefix*/).ToString());
 					if (EnumExtensions.IsFlagSet<ConnectGroup>(val.m_connectGroup, (ConnectGroup)67895699))
 					{
 						orCreateSubFamily.StationDouble = val;

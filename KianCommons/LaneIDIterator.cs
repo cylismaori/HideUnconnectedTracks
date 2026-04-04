@@ -12,7 +12,7 @@ public struct LaneIDIterator(ushort segmentID) : IEnumerable<uint>, IEnumerable,
 
 	private int laneIndex_ = 0;
 
-	private int laneCount_ = ((NetSegment)(ref segmentID.ToSegment())).Info.m_lanes.Length;
+	private int laneCount_ = ((NetSegment)(segmentID.ToSegment())).Info.m_lanes.Length;
 
 	public uint Current => laneID_;
 

@@ -71,7 +71,7 @@ internal static class LineUtil
 		Vector3 val = P - A;
 		Vector3 val2 = B - A;
 		float num = Vector3.Dot(val, val2);
-		float num2 = num / ((Vector3)(ref val2)).sqrMagnitude;
+		float num2 = num / ((Vector3)(val2)).sqrMagnitude;
 		return A + val2 * num2;
 	}
 }

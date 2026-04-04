@@ -24,7 +24,7 @@ internal static class PluginExtensions
 		//IL_0001: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0006: Unknown result type (might be due to invalid IL or missing references)
 		PublishedFileId publishedFileID = plugin.publishedFileID;
-		return ((PublishedFileId)(ref publishedFileID)).AsUInt64;
+		return ((PublishedFileId)(publishedFileID)).AsUInt64;
 	}
 
 	public static bool IsActive(this PluginInfo plugin)

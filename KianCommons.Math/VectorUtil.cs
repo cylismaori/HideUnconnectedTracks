@@ -10,8 +10,8 @@ internal static class VectorUtil
 	{
 		//IL_0011: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0012: Unknown result type (might be due to invalid IL or missing references)
-		((Vector2)(ref v1)).Normalize();
-		((Vector2)(ref v2)).Normalize();
+		((Vector2)(v1)).Normalize();
+		((Vector2)(v2)).Normalize();
 		float num = Vector2.Dot(v1, v2);
 		return Mathf.Acos(num);
 	}
@@ -20,7 +20,7 @@ internal static class VectorUtil
 	{
 		//IL_0008: Unknown result type (might be due to invalid IL or missing references)
 		//IL_000f: Unknown result type (might be due to invalid IL or missing references)
-		return Vector2ByAngleRadCCW(((Vector2)(ref v)).magnitude, angle + v.SignedAngleRadCCW());
+		return Vector2ByAngleRadCCW(((Vector2)(v)).magnitude, angle + v.SignedAngleRadCCW());
 	}
 
 	public static Vector2 Vector2ByAngleRadCCW(float magnitude, float angle)
@@ -35,7 +35,7 @@ internal static class VectorUtil
 	{
 		//IL_0009: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0014: Unknown result type (might be due to invalid IL or missing references)
-		((Vector2)(ref v)).Normalize();
+		((Vector2)(v)).Normalize();
 		return Mathf.Acos(v.x) * Mathf.Sign(v.y);
 	}
 
@@ -96,7 +96,7 @@ internal static class VectorUtil
 	{
 		//IL_0002: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0007: Unknown result type (might be due to invalid IL or missing references)
-		return ((Vector2)(ref v)).normalized.Rotate90CCW();
+		return ((Vector2)(v)).normalized.Rotate90CCW();
 	}
 
 	public static Vector2 Rotate90CW(this Vector2 v)
@@ -111,21 +111,21 @@ internal static class VectorUtil
 	{
 		//IL_0002: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0007: Unknown result type (might be due to invalid IL or missing references)
-		return ((Vector2)(ref v)).normalized.Rotate90CW();
+		return ((Vector2)(v)).normalized.Rotate90CW();
 	}
 
 	public static Vector2 Extend(this Vector2 v, float magnitude)
 	{
 		//IL_0000: Unknown result type (might be due to invalid IL or missing references)
 		//IL_000a: Unknown result type (might be due to invalid IL or missing references)
-		return v.NewMagnitude(magnitude + ((Vector2)(ref v)).magnitude);
+		return v.NewMagnitude(magnitude + ((Vector2)(v)).magnitude);
 	}
 
 	public static Vector2 NewMagnitude(this Vector2 v, float magnitude)
 	{
 		//IL_0003: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0008: Unknown result type (might be due to invalid IL or missing references)
-		return magnitude * ((Vector2)(ref v)).normalized;
+		return magnitude * ((Vector2)(v)).normalized;
 	}
 
 	public static Vector3 ToCS3D(this Vector2 v2, float h = 0f)
@@ -158,7 +158,7 @@ internal static class VectorUtil
 		//IL_0017: Unknown result type (might be due to invalid IL or missing references)
 		//IL_001a: Unknown result type (might be due to invalid IL or missing references)
 		Vector3 val = new Vector3(v.z, 0f, 0f - v.x);
-		return ((Vector3)(ref val)).normalized;
+		return ((Vector3)(val)).normalized;
 	}
 
 	public static Vector3 NormalCCW(this Vector3 v)
@@ -169,7 +169,7 @@ internal static class VectorUtil
 		//IL_0017: Unknown result type (might be due to invalid IL or missing references)
 		//IL_001a: Unknown result type (might be due to invalid IL or missing references)
 		Vector3 val = new Vector3(0f - v.z, 0f, v.x);
-		return ((Vector3)(ref val)).normalized;
+		return ((Vector3)(val)).normalized;
 	}
 
 	public static Vector3 SetI(this Vector3 v, float value, int index)
@@ -177,7 +177,7 @@ internal static class VectorUtil
 		//IL_000b: Unknown result type (might be due to invalid IL or missing references)
 		//IL_000c: Unknown result type (might be due to invalid IL or missing references)
 		//IL_000f: Unknown result type (might be due to invalid IL or missing references)
-		((Vector3)(ref v))[index] = value;
+		((Vector3)(v))[index] = value;
 		return v;
 	}
 

@@ -27,7 +27,7 @@ public static class NetUtil
 			Add(num);
 			while (true)
 			{
-				num = ((NetSegment)(ref num.ToSegment())).GetLeftSegment(nodeID);
+				num = ((NetSegment)(num.ToSegment())).GetLeftSegment(nodeID);
 				if (num == segments[0])
 				{
 					break;
@@ -87,7 +87,7 @@ public static class NetUtil
 		{
 			DynamicFlags flags2 = NetInfo.GetFlags(new string[1] { key });
 			DynamicFlags val = flags2 & flags;
-			if (!((DynamicFlags)(ref val)).IsEmpty)
+			if (!((DynamicFlags)(val)).IsEmpty)
 			{
 				list.Add(key);
 			}
@@ -95,29 +95,29 @@ public static class NetUtil
 		return list.ToArray();
 	}
 
-	public static ref NetNode ToNode(this ushort id)
+	public static NetNode ToNode(this ushort id)
 	{
-		return ref nodeBuffer_[id];
+		return nodeBuffer_[id];
 	}
 
-	public static ref NetSegment ToSegment(this ushort id)
+	public static NetSegment ToSegment(this ushort id)
 	{
-		return ref segmentBuffer_[id];
+		return segmentBuffer_[id];
 	}
 
-	public static ref NetLane ToLane(this uint id)
+	public static NetLane ToLane(this uint id)
 	{
-		return ref laneBuffer_[id];
+		return laneBuffer_[id];
 	}
 
-	internal static Flags Flags(this ref NetLane lane)
+	internal static Flags Flags(this NetLane lane)
 	{
 		return (Flags)lane.m_flags;
 	}
 
 	public static Lane GetLaneInfo(uint laneId)
 	{
-		return ((NetSegment)(ref laneId.ToLane().m_segment.ToSegment())).Info.m_lanes[GetLaneIndex(laneId)];
+		return ((NetSegment)(laneId.ToLane().m_segment.ToSegment())).Info.m_lanes[GetLaneIndex(laneId)];
 	}
 
 	public static IEnumerable<NetInfo> IterateLoadedNetInfos()
@@ -153,7 +153,7 @@ public static class NetUtil
 				return item;
 			}
 		}
-		throw new Exception("Unreachable code. " + $"lane:{laneId} segment:{segment} info:{((NetSegment)(ref segment.ToSegment())).Info}");
+		throw new Exception("Unreachable code. " + $"lane:{laneId} segment:{segment} info:{((NetSegment)(segment.ToSegment())).Info}");
 	}
 
 	public static bool IsCSUR(this NetInfo info)
@@ -179,10 +179,10 @@ public static class NetUtil
 		ushort num = default(ushort);
 		int num2 = default(int);
 		int num3 = default(int);
-		ToolErrors result = NetTool.CreateNode(((NetSegment)(ref controlPoint.m_segment.ToSegment())).Info, controlPoint, controlPoint, controlPoint, NetTool.m_nodePositionsSimulation, 0, test, false, true, false, false, false, (ushort)0, ref nodeId, ref num, ref num2, ref num3);
+		ToolErrors result = NetTool.CreateNode(((NetSegment)(controlPoint.m_segment.ToSegment())).Info, controlPoint, controlPoint, controlPoint, NetTool.m_nodePositionsSimulation, 0, test, false, true, false, false, false, (ushort)0, nodeId, num, num2, num3);
 		if (!test)
 		{
-			ref Flags flags = ref nodeId.ToNode().m_flags;
+			Flags flags = nodeId.ToNode().m_flags;
 			flags = (Flags)((uint)flags | 0x120u);
 		}
 		return result;
@@ -193,32 +193,32 @@ public static class NetUtil
 		return info.m_lanes.Count((Lane lane) => (int)lane.m_laneType == 2);
 	}
 
-	private static bool CheckID(this ref NetNode node1, ushort nodeId2)
+	private static bool CheckID(this NetNode node1, ushort nodeId2)
 	{
 		//IL_0017: Unknown result type (might be due to invalid IL or missing references)
 		//IL_001d: Unknown result type (might be due to invalid IL or missing references)
-		ref NetNode reference = ref nodeId2.ToNode();
+		NetNode reference = nodeId2.ToNode();
 		return node1.m_buildIndex == reference.m_buildIndex && node1.m_position == reference.m_position;
 	}
 
-	private static bool CheckID(this ref NetSegment segment1, ushort segmentId2)
+	private static bool CheckID(this NetSegment segment1, ushort segmentId2)
 	{
-		ref NetSegment reference = ref segmentId2.ToSegment();
+		NetSegment reference = segmentId2.ToSegment();
 		return (segment1.m_startNode == reference.m_startNode) & (segment1.m_endNode == reference.m_endNode);
 	}
 
-	public static ushort GetID(this ref NetNode node)
+	public static ushort GetID(this NetNode node)
 	{
-		ref NetSegment reference = ref node.GetFirstSegment().ToSegment();
+		NetSegment reference = node.GetFirstSegment().ToSegment();
 		return node.CheckID(reference.m_startNode) ? reference.m_startNode : reference.m_endNode;
 	}
 
-	public static ushort GetID(this ref NetSegment segment)
+	public static ushort GetID(this NetSegment segment)
 	{
-		ref NetNode reference = ref segment.m_startNode.ToNode();
+		NetNode reference = segment.m_startNode.ToNode();
 		for (int i = 0; i < 8; i++)
 		{
-			ushort segment2 = ((NetNode)(ref reference)).GetSegment(i);
+			ushort segment2 = ((NetNode)(reference)).GetSegment(i);
 			if (segment.CheckID(segment2))
 			{
 				return segment2;
@@ -232,12 +232,12 @@ public static class NetUtil
 		return nodeID.ToNode().GetFirstSegment();
 	}
 
-	public static ushort GetFirstSegment(this ref NetNode node)
+	public static ushort GetFirstSegment(this NetNode node)
 	{
 		ushort num = 0;
 		for (int i = 0; i < 8; i++)
 		{
-			num = ((NetNode)(ref node)).GetSegment(i);
+			num = ((NetNode)(node)).GetSegment(i);
 			if (num != 0)
 			{
 				break;
@@ -253,7 +253,7 @@ public static class NetUtil
 		//IL_0021: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0024: Unknown result type (might be due to invalid IL or missing references)
 		bool flag = IsStartNode(segmentID, nodeID);
-		ref NetSegment reference = ref segmentID.ToSegment();
+		NetSegment reference = segmentID.ToSegment();
 		return flag ? reference.m_startDirection : reference.m_endDirection;
 	}
 
@@ -262,7 +262,7 @@ public static class NetUtil
 		float num = 0f;
 		foreach (ushort item in IterateNodeSegments(nodeId))
 		{
-			float halfWidth = ((NetSegment)(ref item.ToSegment())).Info.m_halfWidth;
+			float halfWidth = ((NetSegment)(item.ToSegment())).Info.m_halfWidth;
 			if (halfWidth > num)
 			{
 				num = halfWidth;
@@ -271,7 +271,7 @@ public static class NetUtil
 		return num;
 	}
 
-	internal static Bezier3 CalculateSegmentBezier3(this ref NetSegment seg, bool bStartNode = true)
+	internal static Bezier3 CalculateSegmentBezier3(this NetSegment seg, bool bStartNode = true)
 	{
 		//IL_001b: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0024: Unknown result type (might be due to invalid IL or missing references)
@@ -293,17 +293,17 @@ public static class NetUtil
 		//IL_008f: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0094: Unknown result type (might be due to invalid IL or missing references)
 		//IL_009a: Unknown result type (might be due to invalid IL or missing references)
-		ref NetNode reference = ref seg.m_startNode.ToNode();
-		ref NetNode reference2 = ref seg.m_endNode.ToNode();
+		NetNode reference = seg.m_startNode.ToNode();
+		NetNode reference2 = seg.m_endNode.ToNode();
 		Bezier3 val = new Bezier3
 		{
 			a = reference.m_position,
 			d = reference2.m_position
 		};
-		NetSegment.CalculateMiddlePoints(val.a, seg.m_startDirection, val.d, seg.m_endDirection, reference.m_flags.IsFlagSet((Flags)32), reference2.m_flags.IsFlagSet((Flags)32), ref val.b, ref val.c);
+		NetSegment.CalculateMiddlePoints(val.a, seg.m_startDirection, val.d, seg.m_endDirection, reference.m_flags.IsFlagSet((Flags)32), reference2.m_flags.IsFlagSet((Flags)32), val.b, val.c);
 		if (!bStartNode)
 		{
-			val = ((Bezier3)(ref val)).Invert();
+			val = ((Bezier3)(val)).Invert();
 		}
 		return val;
 	}
@@ -331,7 +331,7 @@ public static class NetUtil
 		return CalculateSegmentBezier2(segmentId, startNode);
 	}
 
-	internal static float GetClosestT(this ref NetSegment segment, Vector3 position)
+	internal static float GetClosestT(this NetSegment segment, Vector3 position)
 	{
 		//IL_0003: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0008: Unknown result type (might be due to invalid IL or missing references)
@@ -353,22 +353,22 @@ public static class NetUtil
 		Vector3 v = default(Vector3);
 		Vector3 v2 = default(Vector3);
 		bool flag = default(bool);
-		((NetSegment)(ref segmentID.ToSegment())).CalculateCorner(segmentID, true, IsStartNode(segmentID, nodeID), !bLeft2, ref v, ref v2, ref flag);
+		((NetSegment)(segmentID.ToSegment())).CalculateCorner(segmentID, true, IsStartNode(segmentID, nodeID), !bLeft2, v, v2, flag);
 		cornerPoint = v.ToCS2D();
 		Vector2 val = v2.ToCS2D();
-		cornerDir = ((Vector2)(ref val)).normalized;
+		cornerDir = ((Vector2)(val)).normalized;
 	}
 
 	internal static void CalculateOtherCorner(ushort segmentID, ushort nodeID, bool bLeft2, out Vector2 cornerPoint, out Vector2 cornerDir)
 	{
-		ushort segmentID2 = (bLeft2 ? ((NetSegment)(ref segmentID.ToSegment())).GetLeftSegment(nodeID) : ((NetSegment)(ref segmentID.ToSegment())).GetRightSegment(nodeID));
+		ushort segmentID2 = (bLeft2 ? ((NetSegment)(segmentID.ToSegment())).GetLeftSegment(nodeID) : ((NetSegment)(segmentID.ToSegment())).GetRightSegment(nodeID));
 		CalculateCorner(segmentID2, nodeID, !bLeft2, out cornerPoint, out cornerDir);
 	}
 
 	internal static void CalculateCorner(ushort segmentID, ushort nodeID, bool bLeft2, out Vector3 cornerPos, out Vector3 cornerDirection)
 	{
 		bool flag = default(bool);
-		((NetSegment)(ref segmentID.ToSegment())).CalculateCorner(segmentID, true, IsStartNode(segmentID, nodeID), !bLeft2, ref cornerPos, ref cornerDirection, ref flag);
+		((NetSegment)(segmentID.ToSegment())).CalculateCorner(segmentID, true, IsStartNode(segmentID, nodeID), !bLeft2, cornerPos, cornerDirection, flag);
 	}
 
 	internal static void CalculateSegEndCenter(ushort segmentID, ushort nodeID, out Vector3 pos, out Vector3 dir)
@@ -411,9 +411,9 @@ public static class NetUtil
 		return segmentID.ToSegment().CanConnectPath();
 	}
 
-	public static bool CanConnectPath(this ref NetSegment segment)
+	public static bool CanConnectPath(this NetSegment segment)
 	{
-		return (((NetSegment)(ref segment)).Info.m_netAI is RoadAI) & ((NetSegment)(ref segment)).Info.m_hasPedestrianLanes;
+		return (((NetSegment)(segment)).Info.m_netAI is RoadAI) & ((NetSegment)(segment)).Info.m_hasPedestrianLanes;
 	}
 
 	public static bool CanConnectPath(this NetInfo info)
@@ -421,39 +421,39 @@ public static class NetUtil
 		return (info.m_netAI is RoadAI) & info.m_hasPedestrianLanes;
 	}
 
-	internal static bool IsInvert(this ref NetSegment segment)
+	internal static bool IsInvert(this NetSegment segment)
 	{
 		//IL_0001: Unknown result type (might be due to invalid IL or missing references)
 		return segment.m_flags.IsFlagSet((Flags)16);
 	}
 
-	internal static bool IsMiddle(this ref NetNode node)
+	internal static bool IsMiddle(this NetNode node)
 	{
 		//IL_0001: Unknown result type (might be due to invalid IL or missing references)
 		return node.m_flags.IsFlagSet((Flags)32);
 	}
 
-	internal static bool IsSmooth(this ref NetNode node)
+	internal static bool IsSmooth(this NetNode node)
 	{
 		return node.IsMiddle();
 	}
 
-	internal static bool IsSmooth(this ref NetSegment segment, bool start)
+	internal static bool IsSmooth(this NetSegment segment, bool start)
 	{
 		return segment.GetNode(start).ToNode().IsSmooth();
 	}
 
-	internal static bool SmoothStart(this ref NetSegment segment)
+	internal static bool SmoothStart(this NetSegment segment)
 	{
 		return segment.IsSmooth(start: true);
 	}
 
-	internal static bool SmoothEnd(this ref NetSegment segment)
+	internal static bool SmoothEnd(this NetSegment segment)
 	{
 		return segment.IsSmooth(start: false);
 	}
 
-	internal static bool IsJunction(this ref NetNode node)
+	internal static bool IsJunction(this NetNode node)
 	{
 		//IL_0001: Unknown result type (might be due to invalid IL or missing references)
 		return node.m_flags.IsFlagSet((Flags)128);
@@ -515,7 +515,7 @@ public static class NetUtil
 		return segmentId.ToSegment().m_startNode == nodeId;
 	}
 
-	public static bool IsStartNode(this ref NetSegment segment, ushort nodeId)
+	public static bool IsStartNode(this NetSegment segment, ushort nodeId)
 	{
 		return segment.m_startNode == nodeId;
 	}
@@ -525,7 +525,7 @@ public static class NetUtil
 		return segmentID.ToSegment().GetNode(startNode);
 	}
 
-	public static ushort GetNode(this ref NetSegment segment, bool startNode)
+	public static ushort GetNode(this NetSegment segment, bool startNode)
 	{
 		return startNode ? segment.m_startNode : segment.m_endNode;
 	}
@@ -537,7 +537,7 @@ public static class NetUtil
 
 	public static ushort GetSharedNode(ushort segmentID1, ushort segmentID2)
 	{
-		return ((NetSegment)(ref segmentID1.ToSegment())).GetSharedNode(segmentID2);
+		return ((NetSegment)(segmentID1.ToSegment())).GetSharedNode(segmentID2);
 	}
 
 	public static bool IsSegmentValid(ushort segmentId)
@@ -549,10 +549,10 @@ public static class NetUtil
 		return segmentId.ToSegment().IsValid();
 	}
 
-	public static bool IsValid(this ref NetSegment segment)
+	public static bool IsValid(this NetSegment segment)
 	{
 		//IL_0018: Unknown result type (might be due to invalid IL or missing references)
-		if (!Object.op_Implicit((Object)(object)((NetSegment)(ref segment)).Info))
+		if (!Object.op_Implicit((Object)(object)((NetSegment)(segment)).Info))
 		{
 			return false;
 		}
@@ -567,21 +567,21 @@ public static class NetUtil
 		//IL_0035: Invalid comparison between Unknown and I4
 		//IL_004c: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0053: Invalid comparison between Unknown and I4
-		if (((InstanceID)(ref instance)).IsEmpty)
+		if (((InstanceID)(instance)).IsEmpty)
 		{
 			return false;
 		}
-		if ((int)((InstanceID)(ref instance)).Type == 5)
+		if ((int)((InstanceID)(instance)).Type == 5)
 		{
-			return IsNodeValid(((InstanceID)(ref instance)).NetNode);
+			return IsNodeValid(((InstanceID)(instance)).NetNode);
 		}
-		if ((int)((InstanceID)(ref instance)).Type == 6)
+		if ((int)((InstanceID)(instance)).Type == 6)
 		{
-			return IsSegmentValid(((InstanceID)(ref instance)).NetSegment);
+			return IsSegmentValid(((InstanceID)(instance)).NetSegment);
 		}
-		if ((int)((InstanceID)(ref instance)).Type == 13)
+		if ((int)((InstanceID)(instance)).Type == 13)
 		{
-			return IsLaneValid(((InstanceID)(ref instance)).NetLane);
+			return IsLaneValid(((InstanceID)(instance)).NetLane);
 		}
 		return true;
 	}
@@ -594,10 +594,10 @@ public static class NetUtil
 		//IL_006c: Unknown result type (might be due to invalid IL or missing references)
 		Assertion.AssertNeq(segmentId, 0, "segmentId");
 		Assertion.AssertGT(36864, segmentId);
-		Assertion.AssertNotNull(((NetSegment)(ref segmentId.ToSegment())).Info, $"segment:{segmentId} info");
+		Assertion.AssertNotNull(((NetSegment)(segmentId.ToSegment())).Info, $"segment:{segmentId} info");
 		Flags flags = segmentId.ToSegment().m_flags;
 		bool con = flags.CheckFlags((Flags)1, (Flags)2);
-		Assertion.Assert(con, $"segment {segmentId} {((NetSegment)(ref segmentId.ToSegment())).Info} has bad flags: {flags}");
+		Assertion.Assert(con, $"segment {segmentId} {((NetSegment)(segmentId.ToSegment())).Info} has bad flags: {flags}");
 	}
 
 	public static bool IsNodeValid(ushort nodeId)
@@ -609,10 +609,10 @@ public static class NetUtil
 		return nodeId.ToNode().IsValid();
 	}
 
-	public static bool IsValid(this ref NetNode node)
+	public static bool IsValid(this NetNode node)
 	{
 		//IL_0016: Unknown result type (might be due to invalid IL or missing references)
-		if ((Object)(object)((NetNode)(ref node)).Info == (Object)null)
+		if ((Object)(object)((NetNode)(node)).Info == (Object)null)
 		{
 			return false;
 		}
@@ -629,7 +629,7 @@ public static class NetUtil
 		return false;
 	}
 
-	public static ushort GetHeadNode(this ref NetSegment segment)
+	public static ushort GetHeadNode(this NetSegment segment)
 	{
 		//IL_0002: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0009: Unknown result type (might be due to invalid IL or missing references)
@@ -647,7 +647,7 @@ public static class NetUtil
 		return segmentId.ToSegment().GetHeadNode();
 	}
 
-	public static ushort GetTailNode(this ref NetSegment segment)
+	public static ushort GetTailNode(this NetSegment segment)
 	{
 		//IL_0002: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0009: Unknown result type (might be due to invalid IL or missing references)
@@ -669,7 +669,7 @@ public static class NetUtil
 	{
 		int num = 0;
 		int num2 = 0;
-		((NetSegment)(ref segmentId.ToSegment())).CountLanes(segmentId, (LaneType)33, (VehicleType)2119, (VehicleCategory)(-1), ref num, ref num2);
+		((NetSegment)(segmentId.ToSegment())).CountLanes(segmentId, (LaneType)33, (VehicleType)2119, (VehicleCategory)(-1), num, num2);
 		return (num == 0) ^ (num2 == 0);
 	}
 
@@ -681,7 +681,7 @@ public static class NetUtil
 		ushort segmentID1 = segmentID0;
 		while (true)
 		{
-			segmentID1 = ((NetSegment)(ref segmentID1.ToSegment())).GetRightSegment(nodeID);
+			segmentID1 = ((NetSegment)(segmentID1.ToSegment())).GetRightSegment(nodeID);
 			if (segmentID1 == 0 || segmentID1 == segmentID0)
 			{
 				break;
@@ -698,7 +698,7 @@ public static class NetUtil
 		ushort segmentID1 = segmentID0;
 		while (true)
 		{
-			segmentID1 = ((NetSegment)(ref segmentID1.ToSegment())).GetLeftSegment(nodeID);
+			segmentID1 = ((NetSegment)(segmentID1.ToSegment())).GetLeftSegment(nodeID);
 			if (segmentID1 == 0 || segmentID1 == segmentID0)
 			{
 				break;
@@ -712,7 +712,7 @@ public static class NetUtil
 		int i = 0;
 		while (i < 8)
 		{
-			ushort segmentID = ((NetNode)(ref nodeID.ToNode())).GetSegment(i);
+			ushort segmentID = ((NetNode)(nodeID.ToNode())).GetSegment(i);
 			if (segmentID != 0)
 			{
 				yield return segmentID;
@@ -722,16 +722,16 @@ public static class NetUtil
 		}
 	}
 
-	public static NodeSegmentIterator IterateSegments(this ref NetNode node)
+	public static NodeSegmentIterator IterateSegments(this NetNode node)
 	{
 		return new NodeSegmentIterator(node.GetID());
 	}
 
-	public static ushort GetAnotherSegment(this ref NetNode node, ushort segmentId0)
+	public static ushort GetAnotherSegment(this NetNode node, ushort segmentId0)
 	{
 		for (int i = 0; i < 8; i++)
 		{
-			ushort segment = ((NetNode)(ref node)).GetSegment(i);
+			ushort segment = ((NetNode)(node)).GetSegment(i);
 			if (segment != segmentId0 && segment != 0)
 			{
 				return segment;
@@ -752,15 +752,15 @@ public static class NetUtil
 		//IL_016b: Unknown result type (might be due to invalid IL or missing references)
 		//IL_017c: Unknown result type (might be due to invalid IL or missing references)
 		//IL_018d: Unknown result type (might be due to invalid IL or missing references)
-		string text = "STRANGE LANE ISSUE: lane count mismatch for " + $"segment:{segmentId} Info:{((NetSegment)(ref segmentId.ToSegment())).Info} IsSegmentValid={IsSegmentValid(segmentId)}\n";
-		if ((Object)(object)((NetSegment)(ref segmentId.ToSegment())).Info != (Object)null)
+		string text = "STRANGE LANE ISSUE: lane count mismatch for " + $"segment:{segmentId} Info:{((NetSegment)(segmentId.ToSegment())).Info} IsSegmentValid={IsSegmentValid(segmentId)}\n";
+		if ((Object)(object)((NetSegment)(segmentId.ToSegment())).Info != (Object)null)
 		{
 			List<uint> list = new List<uint>();
 			for (uint num = segmentId.ToSegment().m_lanes; num != 0; num = num.ToLane().m_nextLane)
 			{
 				list.Add(num);
 			}
-			Lane[] lanes = ((NetSegment)(ref segmentId.ToSegment())).Info.m_lanes;
+			Lane[] lanes = ((NetSegment)(segmentId.ToSegment())).Info.m_lanes;
 			if (list.Count == lanes.Length)
 			{
 				return;
@@ -784,7 +784,7 @@ public static class NetUtil
 	public static IEnumerable<uint> IterateNodeLanes(ushort nodeId)
 	{
 		int idx = 0;
-		if ((Object)(object)((NetNode)(ref nodeId.ToNode())).Info == (Object)null)
+		if ((Object)(object)((NetNode)(nodeId.ToNode())).Info == (Object)null)
 		{
 			Log.Error("null info: potentially caused by missing assets");
 			yield break;
@@ -836,7 +836,7 @@ public static class NetUtil
 	{
 		ushort segment = laneID.ToLane().m_segment;
 		uint num = segment.ToSegment().m_lanes;
-		int num2 = ((NetSegment)(ref segment.ToSegment())).Info.m_lanes.Length;
+		int num2 = ((NetSegment)(segment.ToSegment())).Info.m_lanes.Length;
 		for (int i = 0; i < num2; i++)
 		{
 			if (num == 0)
@@ -855,7 +855,7 @@ public static class NetUtil
 	public static uint GetlaneID(ushort segmentID, int laneIndex)
 	{
 		uint num = segmentID.ToSegment().m_lanes;
-		int num2 = ((NetSegment)(ref segmentID.ToSegment())).Info.m_lanes.Length;
+		int num2 = ((NetSegment)(segmentID.ToSegment())).Info.m_lanes.Length;
 		for (int i = 0; i < num2; i++)
 		{
 			if (num == 0)
@@ -875,10 +875,10 @@ public static class NetUtil
 	{
 		//IL_007c: Unknown result type (might be due to invalid IL or missing references)
 		//IL_008b: Unknown result type (might be due to invalid IL or missing references)
-		ref NetSegment reference = ref segmentID.ToSegment();
+		NetSegment reference = segmentID.ToSegment();
 		List<string> list = new List<string>();
-		list.Add($"ushort segment:{segmentID} info:{((NetSegment)(ref reference)).Info}");
-		Lane[] lanes = ((NetSegment)(ref reference)).Info.m_lanes;
+		list.Add($"ushort segment:{segmentID} info:{((NetSegment)(reference)).Info}");
+		Lane[] lanes = ((NetSegment)(reference)).Info.m_lanes;
 		int num = 0;
 		for (uint num2 = reference.m_lanes; num2 != 0; num2 = num2.ToLane().m_nextLane)
 		{

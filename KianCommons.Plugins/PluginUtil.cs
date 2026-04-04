@@ -154,7 +154,7 @@ internal static class PluginUtil
 		if (!current.name.Contains("CSUR ToolBox"))
 		{
 			PublishedFileId publishedFileID = current.publishedFileID;
-			result = ((1959342332 == (int)((PublishedFileId)(ref publishedFileID)).AsUInt64) ? 1 : 0);
+			result = ((1959342332 == (int)((PublishedFileId)(publishedFileID)).AsUInt64) ? 1 : 0);
 		}
 		else
 		{

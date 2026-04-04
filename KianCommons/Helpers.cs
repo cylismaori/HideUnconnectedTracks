@@ -19,7 +19,7 @@ internal static class Helpers
 			//IL_000a: Unknown result type (might be due to invalid IL or missing references)
 			string[] startupScenes = StartupScenes;
 			Scene activeScene = SceneManager.GetActiveScene();
-			return startupScenes.Contains(((Scene)(ref activeScene)).name);
+			return startupScenes.Contains(((Scene)(activeScene)).name);
 		}
 	}
 
@@ -29,7 +29,7 @@ internal static class Helpers
 
 	internal static bool AltIsPressed => Input.GetKey((KeyCode)308) || Input.GetKey((KeyCode)307);
 
-	internal static void Swap<T>(ref T a, ref T b)
+	internal static void Swap<T>(T a, T b)
 	{
 		T val = a;
 		a = b;

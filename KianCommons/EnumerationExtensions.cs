@@ -82,7 +82,7 @@ internal static class EnumerationExtensions
 		return -1;
 	}
 
-	internal static void DropElement<T>(ref T[] array, int i)
+	internal static void DropElement<T>(T[] array, int i)
 	{
 		int num = array.Length;
 		T[] array2 = new T[num - 1];
@@ -118,9 +118,9 @@ internal static class EnumerationExtensions
 		return false;
 	}
 
-	internal static void AppendElement<T>(ref T[] array, T element)
+	internal static void AppendElement<T>(T[] array, T element)
 	{
-		Array.Resize(ref array, array.Length + 1);
+		Array.Resize(array, array.Length + 1);
 		array.Last() = element;
 	}
 
@@ -132,7 +132,7 @@ internal static class EnumerationExtensions
 		}
 		else
 		{
-			AppendElement(ref array, element);
+			AppendElement(array, element);
 		}
 		return array;
 	}
@@ -155,9 +155,9 @@ internal static class EnumerationExtensions
 		}
 	}
 
-	internal static ref T Last<T>(this T[] array)
+	internal static T Last<T>(this T[] array)
 	{
-		return ref array[array.Length - 1];
+		return array[array.Length - 1];
 	}
 
 	internal static void Swap<T>(this IList<T> list, int i1, int i2)

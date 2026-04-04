@@ -22,14 +22,14 @@ internal static class ReflectionExtension
 		return ReflectionHelpers.GetMethod(type, name, binding, types, throwOnError);
 	}
 
-	internal static void SetValue<TStruct>(this FieldInfo fieldInfo, ref TStruct obj, object val) where TStruct : struct
+	internal static void SetValue<TStruct>(this FieldInfo fieldInfo, TStruct obj, object val) where TStruct : struct
 	{
 		object obj2 = obj;
 		fieldInfo.SetValue(obj2, val);
 		obj = (TStruct)obj2;
 	}
 
-	internal static void SetValue<TStruct>(this PropertyInfo propertyInfo, ref TStruct obj, object value, object[] index) where TStruct : struct
+	internal static void SetValue<TStruct>(this PropertyInfo propertyInfo, TStruct obj, object value, object[] index) where TStruct : struct
 	{
 		object obj2 = obj;
 		propertyInfo.SetValue(obj2, value, index);

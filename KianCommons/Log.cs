@@ -241,7 +241,7 @@ internal static class Log
 			id = -id;
 		}
 		id = System.Math.Abs(id % 1000);
-		_ = ref times_[id];
+		_ = times_[id];
 		if (true)
 		{
 			num = (DateTime.Now - times_[id]).Seconds;

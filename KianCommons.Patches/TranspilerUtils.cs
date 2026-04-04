@@ -92,16 +92,6 @@ public static class TranspilerUtils
 
 	public static CodeInstruction GetLDArg(MethodBase method, string argName, bool throwOnError = true)
 	{
-		//IL_0030: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0036: Expected O, but got Unknown
-		//IL_0049: Unknown result type (might be due to invalid IL or missing references)
-		//IL_004f: Expected O, but got Unknown
-		//IL_0062: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0068: Expected O, but got Unknown
-		//IL_008f: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0095: Expected O, but got Unknown
-		//IL_007b: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0081: Expected O, but got Unknown
 		if (!throwOnError && !HasParameter(method, argName))
 		{
 			return null;
@@ -186,18 +176,6 @@ public static class TranspilerUtils
 
 	public static CodeInstruction BuildLdLocFromStLoc(this CodeInstruction instruction)
 	{
-		//IL_001c: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0022: Expected O, but got Unknown
-		//IL_0042: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0048: Expected O, but got Unknown
-		//IL_0068: Unknown result type (might be due to invalid IL or missing references)
-		//IL_006e: Expected O, but got Unknown
-		//IL_0090: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0096: Expected O, but got Unknown
-		//IL_00ba: Unknown result type (might be due to invalid IL or missing references)
-		//IL_00c0: Expected O, but got Unknown
-		//IL_00e4: Unknown result type (might be due to invalid IL or missing references)
-		//IL_00ea: Expected O, but got Unknown
 		if (instruction.opcode == OpCodes.Stloc_0)
 		{
 			return new CodeInstruction(OpCodes.Ldloc_0, (object)null);
@@ -227,18 +205,6 @@ public static class TranspilerUtils
 
 	public static CodeInstruction BuildStLocFromLdLoc(this CodeInstruction instruction)
 	{
-		//IL_001c: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0022: Expected O, but got Unknown
-		//IL_0042: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0048: Expected O, but got Unknown
-		//IL_0068: Unknown result type (might be due to invalid IL or missing references)
-		//IL_006e: Expected O, but got Unknown
-		//IL_0090: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0096: Expected O, but got Unknown
-		//IL_00ba: Unknown result type (might be due to invalid IL or missing references)
-		//IL_00c0: Expected O, but got Unknown
-		//IL_00e4: Unknown result type (might be due to invalid IL or missing references)
-		//IL_00ea: Expected O, but got Unknown
 		if (instruction.opcode == OpCodes.Ldloc_0)
 		{
 			return new CodeInstruction(OpCodes.Stloc_0, (object)null);
@@ -370,7 +336,7 @@ public static class TranspilerUtils
 		index = SearchGeneric(codes, (int idx) =>
 		{
 			Label? label = default(Label?);
-			return CodeInstructionExtensions.Branches(codes[idx], ref label);
+			return CodeInstructionExtensions.Branches(codes[idx], label);
 		}, index, dir, counter);
 		return (Label)codes[index].operand;
 	}
