@@ -47,6 +47,7 @@ public static class CheckTracksCommons
 		return true;
 	}
 
+
 	public static void ApplyCheckTracks(List<CodeInstruction> codes, MethodBase method, int occurance)
 	{
 		int startIndex = 0;
@@ -72,23 +73,17 @@ public static class CheckTracksCommons
 
 	public static CodeInstruction Build_LDLocA_NodeInfo(List<CodeInstruction> codes, int index, int counter, int dir)
 	{
-		//IL_000c: Unknown result type (might be due to invalid IL or missing references)
-		//IL_001b: Expected O, but got Unknown
-		//IL_004a: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0050: Expected O, but got Unknown
-		index = TranspilerUtils.SearchInstruction(codes, new CodeInstruction(OpCodes.Ldfld, (object)fNodes), index, dir, counter);
-		CodeInstruction val = codes[index + 3];
+        index = TranspilerUtils.SearchGeneric(codes, idx => TranspilerUtils.IsSameInstruction(codes[idx], new CodeInstruction(OpCodes.Ldfld, (object)fNodes)), index, dir, counter);
+        //index = TranspilerUtils.SearchInstruction(codes, new CodeInstruction(OpCodes.Ldfld, (object)fNodes), index, dir, counter);
+        CodeInstruction val = codes[index + 3];
 		Assertion.Assert(CodeInstructionExtensions.IsStloc(val, (LocalBuilder)null), $"IsStLoc(code) | code={val}");
 		return new CodeInstruction(OpCodes.Ldloca_S, val.operand);
 	}
 
 	public static CodeInstruction Build_LDLocA_DataVector0(List<CodeInstruction> codes, int index, int counter, int dir)
 	{
-		//IL_000c: Unknown result type (might be due to invalid IL or missing references)
-		//IL_001b: Expected O, but got Unknown
-		//IL_004a: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0050: Expected O, but got Unknown
-		index = TranspilerUtils.SearchInstruction(codes, new CodeInstruction(OpCodes.Ldfld, (object)fDataVector0), index, dir, counter);
+        index = TranspilerUtils.SearchGeneric(codes, idx => TranspilerUtils.IsSameInstruction(codes[idx], new CodeInstruction(OpCodes.Ldfld, (object)fDataVector0)), index, dir, counter);
+        //index = TranspilerUtils.SearchInstruction(codes, new CodeInstruction(OpCodes.Ldfld, (object)fDataVector0), index, dir, counter);
 		CodeInstruction val = codes[index + 1];
 		Assertion.Assert(CodeInstructionExtensions.IsStloc(val, (LocalBuilder)null), $"IsStLoc(code) | code={val}");
 		return new CodeInstruction(OpCodes.Ldloca_S, val.operand);

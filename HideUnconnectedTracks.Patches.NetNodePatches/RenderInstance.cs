@@ -28,10 +28,16 @@ public static class RenderInstance
 
     public static IEnumerable<CodeInstruction> Transpiler(MethodBase original, IEnumerable<CodeInstruction> instructions)
     {
+
+        var codes = instructions.ToCodeList();
+        CheckTracksCommons.ApplyCheckTracks(codes, original, 1);
+        return codes;
+        
+        /*
         try
         {
             List<CodeInstruction> list = instructions.ToCodeList();
-            //CheckTracksCommons.ApplyCheckTracks(list, original, 1);
+            CheckTracksCommons.ApplyCheckTracks(list, original, 1);
             return list;
         }
         catch (Exception ex)
@@ -42,5 +48,6 @@ public static class RenderInstance
             }
             throw ex;
         }
+        */
     }
 }

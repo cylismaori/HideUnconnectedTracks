@@ -170,7 +170,7 @@ namespace KianCommons.Patches {
         }
 
 
-        [Obsolete("use harmony extension instead")]
+        //[Obsolete("use harmony extension instead")]
         public static bool IsLdLoc(CodeInstruction instruction) {
             return (instruction.opcode == OpCodes.Ldloc_0 || instruction.opcode == OpCodes.Ldloc_1 ||
                     instruction.opcode == OpCodes.Ldloc_2 || instruction.opcode == OpCodes.Ldloc_3
@@ -178,7 +178,7 @@ namespace KianCommons.Patches {
                 );
         }
 
-        [Obsolete("use harmony extension instead")]
+        //[Obsolete("use harmony extension instead")]
         public static bool IsStLoc(CodeInstruction instruction) {
             return (instruction.opcode == OpCodes.Stloc_0 || instruction.opcode == OpCodes.Stloc_1 ||
                     instruction.opcode == OpCodes.Stloc_2 || instruction.opcode == OpCodes.Stloc_3
