@@ -12,9 +12,9 @@ public struct NodeInfoClass
 
 	public bool RequireWindSpeed;
 
-	public Flags RequiredFlags;
+	public NetNode.Flags RequiredFlags;
 
-	public Flags ForbiddenFlags;
+	public NetNode.Flags ForbiddenFlags;
 
 	public int Layer;
 
@@ -22,21 +22,15 @@ public struct NodeInfoClass
 
 	public bool RequireSurfaceMaps;
 
-	public NodeInfoClass(Node nodeInfo, int usedIndex, int inconsistencyLevel)
+	public NodeInfoClass(NetInfo.Node nodeInfo, int usedIndex, int inconsistencyLevel)
 	{
-		//IL_0011: Unknown result type (might be due to invalid IL or missing references)
-		//IL_002e: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0035: Unknown result type (might be due to invalid IL or missing references)
-		//IL_005c: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0061: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0071: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0076: Unknown result type (might be due to invalid IL or missing references)
 		InconsistencyLevel = inconsistencyLevel;
 		UsedIndex = usedIndex;
-		Track = nodeInfo.m_connectGroup.GetTrackType();
-		RequireWindSpeed = nodeInfo.m_requireWindSpeed;
-		RequiredFlags = (Flags)0;
-		ForbiddenFlags = (Flags)0;
+		Track = TrackTypeExtensions.GetTrackType(nodeInfo.m_connectGroup);
+
+        RequireWindSpeed = nodeInfo.m_requireWindSpeed;
+		RequiredFlags = (NetNode.Flags)0;
+		ForbiddenFlags = (NetNode.Flags)0;
 		Layer = -1;
 		EmptyTransparent = false;
 		RequireSurfaceMaps = false;
@@ -66,11 +60,11 @@ public struct NodeInfoClass
 		}
 		if ((int)RequiredFlags > 0)
 		{
-			text = text + "|RequiredFlags=" + ((object)System.Runtime.CompilerServices.Unsafe.As<Flags, Flags>(RequiredFlags)/*cast due to .constrained prefix*/).ToString();
+			text = text + "|RequiredFlags=" + (object)RequiredFlags.ToString();
 		}
 		if ((int)ForbiddenFlags > 0)
 		{
-			text = text + "|ForbiddenFlags=" + ((object)System.Runtime.CompilerServices.Unsafe.As<Flags, Flags>(ForbiddenFlags)/*cast due to .constrained prefix*/).ToString();
+			text = text + "|ForbiddenFlags=" + (object)ForbiddenFlags.ToString();
 		}
 		if (RequireSurfaceMaps)
 		{

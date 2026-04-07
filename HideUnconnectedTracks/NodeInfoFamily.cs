@@ -8,23 +8,23 @@ public class NodeInfoFamily
 {
 	public NodeInfoClass Class;
 
-	public Node TwoWayDouble;
+	public NetInfo.Node TwoWayDouble;
 
-	public Node TwoWayRight;
+	public NetInfo.Node TwoWayRight;
 
-	public Node TwoWayLeft;
+	public NetInfo.Node TwoWayLeft;
 
-	public Node OneWay;
+	public NetInfo.Node OneWay;
 
-	public Node OneWayEnd;
+	public NetInfo.Node OneWayEnd;
 
-	public Node OneWayStart;
+	public NetInfo.Node OneWayStart;
 
-	public Node StationDouble;
+	public NetInfo.Node StationDouble;
 
-	public Node StationSingle;
+	public NetInfo.Node StationSingle;
 
-	public Node Station;
+	public NetInfo.Node Station;
 
 	public bool IsComplete => CanComplete && TwoWayRight != null && TwoWayLeft != null && TwoWayRight != null;
 
@@ -33,21 +33,21 @@ public class NodeInfoFamily
 	public override string ToString()
 	{
 		return "TwoWayDouble:" + T(TwoWayDouble) + " TwoWayRight:" + T(TwoWayRight) + " TwoWayLeft:" + T(TwoWayLeft) + " | OneWay:" + T(OneWay) + " OneWayEnd:" + T(OneWayEnd) + " OneWayStart:" + T(OneWayStart) + " | " + $"StationDouble:{T(StationDouble)} StationSingle:{T(StationSingle)} Station:{T(Station)} | Class={Class}  ";
-		static string T(Node nodeInfo)
+		static string T(NetInfo.Node nodeInfo)
 		{
 			if (nodeInfo == null)
 			{
 				return "<EMPTY>";
 			}
 			Mesh nodeMesh = nodeInfo.m_nodeMesh;
-			string arg = ((nodeMesh != null) ? ((Object)nodeMesh).name : null) ?? "<MESH=null>";
+			string arg = ((nodeMesh != null) ? ((UnityEngine.Object)nodeMesh).name : null) ?? "<MESH=null>";
 			return $"{arg,-20}";
 		}
 	}
 
 	public bool GenerateExtraMeshes()
 	{
-		if ((Object)(object)TwoWayDouble?.m_nodeMesh == (Object)null)
+		if ((UnityEngine.Object)(object)TwoWayDouble?.m_nodeMesh == (UnityEngine.Object)null)
 		{
 			return false;
 		}
@@ -61,7 +61,7 @@ public class NodeInfoFamily
 			}
 			else
 			{
-				TwoWayRight.m_nodeMesh = TwoWayDouble.m_nodeMesh.CutMesh2(keepLeftSide: false);
+				TwoWayRight.m_nodeMesh =   TwoWayDouble.m_nodeMesh.CutMesh2(keepLeftSide: false);
 			}
 		}
 		if (TwoWayLeft == null)
@@ -112,8 +112,8 @@ public class NodeInfoFamily
 	{
 		if (StationDouble != null && TwoWayDouble != null)
 		{
-			Dictionary<Node, NodeInfoFamily> lUT = NodeInfoLUT.LUT;
-			Node stationDouble = StationDouble;
+			Dictionary<NetInfo.Node, NodeInfoFamily> lUT = NodeInfoLUT.LUT;
+			NetInfo.Node stationDouble = StationDouble;
 			NodeInfoFamily value = (NodeInfoLUT.LUT[TwoWayDouble] = this);
 			lUT[stationDouble] = value;
 			if (StationSingle != null && OneWayStart != null)
@@ -127,13 +127,13 @@ public class NodeInfoFamily
 		}
 	}
 
-	public static Node CopyNodeInfo_shallow(Node nodeInfo)
+	public static NetInfo.Node CopyNodeInfo_shallow(NetInfo.Node nodeInfo)
 	{
 		//IL_0010: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0016: Expected O, but got Unknown
 		Assertion.Assert(nodeInfo != null, "nodeInfo==null");
-		Node val = new Node();
-		ReflectionHelpers.CopyProperties<Node>(val, nodeInfo);
+		NetInfo.Node val = new NetInfo.Node();
+		ReflectionHelpers.CopyProperties<NetInfo.Node>(val, nodeInfo);
 		Assertion.Assert((Object)(object)nodeInfo.m_material != (Object)null, "nodeInfo m_material is null");
 		return val;
 	}

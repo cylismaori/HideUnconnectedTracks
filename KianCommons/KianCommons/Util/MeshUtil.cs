@@ -29,7 +29,7 @@ namespace KianCommons {
                 OBJLoader.ExportOBJ(mesh.EncodeOBJ(), fs);
             }
         }
-
+        
         /// <summary>
         /// drops unused vertices.
         /// </summary>

@@ -115,10 +115,6 @@ public static class DirectConnectUtil
 
 	internal static bool HasDirectConnect(ushort segmentId1, ushort segmentId2, ushort nodeId, int nodeInfoIDX)
 	{
-		//IL_0016: Unknown result type (might be due to invalid IL or missing references)
-		//IL_001b: Unknown result type (might be due to invalid IL or missing references)
-		//IL_001d: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0037: Unknown result type (might be due to invalid IL or missing references)
 		try
 		{
 			NetInfo.Node nodeInfo = ((NetSegment)(segmentId1.ToSegment())).Info.m_nodes[nodeInfoIDX];
@@ -127,7 +123,7 @@ public static class DirectConnectUtil
 			{
 				return true;
 			}
-			return HasDirectConnect(segmentId1, segmentId2, nodeId, (LaneType)255, vehicleType);
+			return HasDirectConnect(segmentId1, segmentId2, nodeId, (NetInfo.LaneType)255, vehicleType);
 		}
 		catch (Exception ex)
 		{
@@ -136,14 +132,8 @@ public static class DirectConnectUtil
 		}
 	}
 
-	internal static bool HasDirectConnect(ushort sourceSegmentId, ushort targetSegmentId, ushort nodeId, LaneType laneType, VehicleType vehicleType)
+	internal static bool HasDirectConnect(ushort sourceSegmentId, ushort targetSegmentId, ushort nodeId, NetInfo.LaneType laneType, VehicleInfo.VehicleType vehicleType)
 	{
-		//IL_002d: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0036: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0049: Unknown result type (might be due to invalid IL or missing references)
-		//IL_004a: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0056: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0057: Unknown result type (might be due to invalid IL or missing references)
 		if (Log.VERBOSE)
 		{
 			Log.Called(sourceSegmentId, targetSegmentId, nodeId, laneType, vehicleType);
@@ -161,19 +151,15 @@ public static class DirectConnectUtil
 
 	internal static bool DetermineDirectConnect(ushort segmentId1, ushort segmentId2, ushort nodeId, NetInfo.Node nodeInfo, out bool flipMesh)
 	{
-		//IL_0008: Unknown result type (might be due to invalid IL or missing references)
-		//IL_000d: Unknown result type (might be due to invalid IL or missing references)
-		//IL_000f: Unknown result type (might be due to invalid IL or missing references)
-		//IL_002a: Unknown result type (might be due to invalid IL or missing references)
 		flipMesh = false;
 		try
 		{
-			VehicleType vehicleType = nodeInfo.GetVehicleType();
+			VehicleInfo.VehicleType vehicleType = nodeInfo.GetVehicleType();
 			if (!DCUtil.HasLane(segmentId1, vehicleType))
 			{
 				return true;
 			}
-			Node val = DetermineDirectConnect(nodeInfo, segmentId1, segmentId2, nodeId, (LaneType)255, vehicleType, out flipMesh);
+			NetInfo.Node val = DetermineDirectConnect(nodeInfo, segmentId1, segmentId2, nodeId, (NetInfo.LaneType)255, vehicleType, out flipMesh);
 			if (val == null)
 			{
 				return false;
@@ -197,14 +183,8 @@ public static class DirectConnectUtil
 		}
 	}
 
-	internal static Node DetermineDirectConnect(Node nodeInfo, ushort sourceSegmentId, ushort targetSegmentId, ushort nodeId, LaneType laneType, VehicleType vehicleType, out bool flipMesh)
+	internal static NetInfo.Node DetermineDirectConnect(NetInfo.Node nodeInfo, ushort sourceSegmentId, ushort targetSegmentId, ushort nodeId, NetInfo.LaneType laneType, VehicleInfo.VehicleType vehicleType, out bool flipMesh)
 	{
-		//IL_00af: Unknown result type (might be due to invalid IL or missing references)
-		//IL_00b8: Unknown result type (might be due to invalid IL or missing references)
-		//IL_00d7: Unknown result type (might be due to invalid IL or missing references)
-		//IL_00e0: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0071: Unknown result type (might be due to invalid IL or missing references)
-		//IL_014b: Unknown result type (might be due to invalid IL or missing references)
 		flipMesh = false;
 		try
 		{
@@ -224,15 +204,15 @@ public static class DirectConnectUtil
 				if (Log.VERBOSE)
 				{
 				}
-				return HasDirectConnect(sourceSegmentId, targetSegmentId, nodeId, (LaneType)255, vehicleType) ? nodeInfo : null;
+				return HasDirectConnect(sourceSegmentId, targetSegmentId, nodeId, (NetInfo.LaneType)255, vehicleType) ? nodeInfo : null;
 			}
 			ConnectionT connectionT = ConnectionT.None;
 			bool flag = reference.IsStartNode(nodeId);
 			bool flag2 = reference.IsInvert();
 			bool flag3 = reference2.IsStartNode(nodeId);
 			bool flag4 = reference2.IsInvert();
-			LaneType? laneType2 = laneType;
-			VehicleType? vehicleType2 = vehicleType;
+			NetInfo.LaneType? laneType2 = laneType;
+			VehicleInfo.VehicleType? vehicleType2 = vehicleType;
 			LaneDataIterator it = new LaneDataIterator(sourceSegmentId, null, laneType2, vehicleType2);
 			laneType2 = laneType;
 			vehicleType2 = vehicleType;
@@ -245,7 +225,7 @@ public static class DirectConnectUtil
 			}
 			if (count > 2 || count2 > 2)
 			{
-				return HasDirectConnect(sourceSegmentId, targetSegmentId, nodeId, (LaneType)255, vehicleType) ? nodeInfo : null;
+				return HasDirectConnect(sourceSegmentId, targetSegmentId, nodeId, (NetInfo.LaneType)255, vehicleType) ? nodeInfo : null;
 			}
 			bool flag5 = count == 1;
 			bool flag6 = count2 == 1;
@@ -290,7 +270,7 @@ public static class DirectConnectUtil
 					throw new Exception("Unreachable code");
 				}
 			}
-			return (Node)(connectionT switch
+			return (NetInfo.Node)(connectionT switch
 			{
 				ConnectionT.None => null, 
 				ConnectionT.Left => nodeInfoFamily.TwoWayLeft, 

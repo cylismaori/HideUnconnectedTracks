@@ -22,7 +22,7 @@ public class MeshTable
 	{
 		get
 		{
-			if ((Object)(object)key == (Object)null)
+			if ((UnityEngine.Object)(object)key == (UnityEngine.Object)null)
 			{
 				return null;
 			}

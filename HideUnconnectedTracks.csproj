@@ -11,6 +11,34 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
+    <Compile Remove="KianCommons\KianCommons\Backport\**" />
+    <Compile Remove="KianCommons\KianCommons\Serialization\**" />
+    <Compile Remove="KianCommons\KianCommons\StockCode\**" />
+    <Compile Remove="KianCommons\KianCommons\Tool\**" />
+    <Compile Remove="KianCommons\KianCommons\UI\**" />
+    <Compile Remove="KianCommons\KianCommons\Util\unsafe\**" />
+    <Compile Remove="ObjUnity3D\**" />
+    <EmbeddedResource Remove="KianCommons\KianCommons\Backport\**" />
+    <EmbeddedResource Remove="KianCommons\KianCommons\Serialization\**" />
+    <EmbeddedResource Remove="KianCommons\KianCommons\StockCode\**" />
+    <EmbeddedResource Remove="KianCommons\KianCommons\Tool\**" />
+    <EmbeddedResource Remove="KianCommons\KianCommons\UI\**" />
+    <EmbeddedResource Remove="KianCommons\KianCommons\Util\unsafe\**" />
+    <EmbeddedResource Remove="ObjUnity3D\**" />
+    <None Remove="KianCommons\KianCommons\Backport\**" />
+    <None Remove="KianCommons\KianCommons\Serialization\**" />
+    <None Remove="KianCommons\KianCommons\StockCode\**" />
+    <None Remove="KianCommons\KianCommons\Tool\**" />
+    <None Remove="KianCommons\KianCommons\UI\**" />
+    <None Remove="KianCommons\KianCommons\Util\unsafe\**" />
+    <None Remove="ObjUnity3D\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="KianCommons\KianCommons\LifeCycleBase.cs" />
+    <Compile Remove="KianCommons\KianCommons\Util\GridUtil.cs" />
+    <Compile Remove="KianCommons\KianCommons\Util\StackHelpers.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="Assembly-CSharp">
       <HintPath>D:\Games\Valve\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
@@ -20,8 +48,14 @@
     <Reference Include="ColossalManaged">
       <HintPath>D:\Games\Valve\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\ColossalManaged.dll</HintPath>
     </Reference>
+    <Reference Include="CSURToolBox">
+      <HintPath>libs\CSURToolBox.dll</HintPath>
+    </Reference>
     <Reference Include="ICities">
       <HintPath>D:\Games\Valve\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\ICities.dll</HintPath>
+    </Reference>
+    <Reference Include="NetworkSkins">
+      <HintPath>libs\NetworkSkins.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="CitiesHarmony.API">
@@ -32,6 +66,9 @@
     </Reference>
     <Reference Include="UnityEngine">
       <HintPath>D:\Games\Valve\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>D:\Games\Valve\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

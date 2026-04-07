@@ -50,41 +50,7 @@ public class TrackFamily
 
 	public static TrackFamily CreateFamily(IEnumerable<NetInfo> infos, TrackType trackType = TrackType.All, int inconsistencyLevel = 0)
 	{
-		//IL_0002: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0007: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0028: Unknown result type (might be due to invalid IL or missing references)
-		//IL_002d: Unknown result type (might be due to invalid IL or missing references)
-		//IL_002e: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0030: Invalid comparison between Unknown and I4
-		//IL_005b: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0060: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0076: Unknown result type (might be due to invalid IL or missing references)
-		//IL_00d5: Unknown result type (might be due to invalid IL or missing references)
-		//IL_00da: Unknown result type (might be due to invalid IL or missing references)
-		//IL_00f3: Unknown result type (might be due to invalid IL or missing references)
-		//IL_00fd: Unknown result type (might be due to invalid IL or missing references)
-		//IL_00fe: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0102: Unknown result type (might be due to invalid IL or missing references)
-		//IL_018e: Unknown result type (might be due to invalid IL or missing references)
-		//IL_011a: Unknown result type (might be due to invalid IL or missing references)
-		//IL_02c5: Unknown result type (might be due to invalid IL or missing references)
-		//IL_01a7: Unknown result type (might be due to invalid IL or missing references)
-		//IL_01ae: Invalid comparison between Unknown and I4
-		//IL_0130: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0133: Invalid comparison between Unknown and I4
-		//IL_02db: Unknown result type (might be due to invalid IL or missing references)
-		//IL_02de: Invalid comparison between Unknown and I4
-		//IL_0304: Unknown result type (might be due to invalid IL or missing references)
-		//IL_01f9: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0200: Invalid comparison between Unknown and I4
-		//IL_01b9: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0326: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0248: Unknown result type (might be due to invalid IL or missing references)
-		//IL_024f: Invalid comparison between Unknown and I4
-		//IL_020b: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0299: Unknown result type (might be due to invalid IL or missing references)
-		//IL_025a: Unknown result type (might be due to invalid IL or missing references)
-		ConnectGroup connectGroups = trackType.GetConnectGroups();
+		NetInfo.ConnectGroup connectGroups = trackType.GetConnectGroups();
 		TrackFamily trackFamily = new TrackFamily();
 		foreach (NetInfo info in infos)
 		{
@@ -92,12 +58,12 @@ public class TrackFamily
 			HashSet<NodeInfoClassMetaData> hashSet = new HashSet<NodeInfoClassMetaData>();
 			for (int i = 0; i < info.m_nodes.Length; i++)
 			{
-				Node val = info.m_nodes[i];
-				if (!EnumExtensions.IsFlagSet<ConnectGroup>(val.m_connectGroup, connectGroups))
+				NetInfo.Node val = info.m_nodes[i];
+				if (!EnumExtensions.IsFlagSet<NetInfo.ConnectGroup>(val.m_connectGroup, connectGroups))
 				{
 					continue;
 				}
-				Assertion.Assert(EnumExtensions.IsFlagSet<ConnectGroup>(val.m_connectGroup, (ConnectGroup)71176191), "unexpected nodeInfo.m_connectGroup=" + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(info.m_nodeConnectGroups)/*cast due to .constrained prefix*/).ToString());
+				Assertion.Assert(EnumExtensions.IsFlagSet<NetInfo.ConnectGroup>(val.m_connectGroup, (NetInfo.ConnectGroup)71176191), "unexpected nodeInfo.m_connectGroup=" + (object)info.m_nodeConnectGroups.ToString());
 				int usedIndex = NodeInfoClassMetaData.Count(hashSet, val);
 				NodeInfoClass nodeInfoClass = new NodeInfoClass(val, usedIndex, inconsistencyLevel);
 				hashSet.Add(new NodeInfoClassMetaData
@@ -106,50 +72,50 @@ public class TrackFamily
 					ConnectGroup = val.m_connectGroup
 				});
 				NodeInfoFamily orCreateSubFamily = trackFamily.GetOrCreateSubFamily(nodeInfoClass);
-				ConnectGroup val2 = (ConnectGroup)(val.m_connectGroup & 0x3000);
-				if (EnumExtensions.IsFlagSet<ConnectGroup>(info.m_connectGroup, (ConnectGroup)67895699))
+				NetInfo.ConnectGroup val2 = (NetInfo.ConnectGroup)((int)val.m_connectGroup & 0x3000);
+				if (EnumExtensions.IsFlagSet<NetInfo.ConnectGroup>(info.m_connectGroup, (NetInfo.ConnectGroup)67895699))
 				{
-					if (!EnumExtensions.IsFlagSet<ConnectGroup>(val.m_connectGroup, (ConnectGroup)67895699))
+					if (!EnumExtensions.IsFlagSet<NetInfo.ConnectGroup>(val.m_connectGroup, (NetInfo.ConnectGroup)67895699))
 					{
-						throw new Exception("(DOUBLE) unexpected nodeInfo.m_connectGroup=" + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(val.m_connectGroup)/*cast due to .constrained prefix*/).ToString());
+						throw new Exception("(DOUBLE) unexpected nodeInfo.m_connectGroup=" + (object)val.m_connectGroup.ToString());
 					}
-					Assertion.Assert((int)val2 == 0, "(DOUBLE to DOUBLE)expected oneway=0 got " + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(info.m_connectGroup)/*cast due to .constrained prefix*/).ToString());
+					Assertion.Assert((int)val2 == 0, "(DOUBLE to DOUBLE)expected oneway=0 got " + (object)info.m_connectGroup.ToString());
 					orCreateSubFamily.TwoWayDouble = val;
 				}
-				else if (EnumExtensions.IsFlagSet<ConnectGroup>(info.m_connectGroup, (ConnectGroup)3148332))
+				else if (EnumExtensions.IsFlagSet<NetInfo.ConnectGroup>(info.m_connectGroup, (NetInfo.ConnectGroup)3148332))
 				{
 					if ((int)val2 == 4096)
 					{
-						Assertion.Assert(EnumExtensions.IsFlagSet<ConnectGroup>(val.m_connectGroup, (ConnectGroup)67895699), "(OnewayStart) unexpected nodeInfo.m_connectGroup=" + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(info.m_connectGroup)/*cast due to .constrained prefix*/).ToString());
+						Assertion.Assert(EnumExtensions.IsFlagSet<NetInfo.ConnectGroup>(val.m_connectGroup, (NetInfo.ConnectGroup)67895699), "(OnewayStart) unexpected nodeInfo.m_connectGroup=" + (object)info.m_connectGroup.ToString());
 						orCreateSubFamily.OneWayStart = val;
 					}
 					else if ((int)val2 == 8192)
 					{
-						Assertion.Assert(EnumExtensions.IsFlagSet<ConnectGroup>(val.m_connectGroup, (ConnectGroup)67895699), "(OnewayEnd) unexpected nodeInfo.m_connectGroup=" + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(info.m_connectGroup)/*cast due to .constrained prefix*/).ToString());
+						Assertion.Assert(EnumExtensions.IsFlagSet<NetInfo.ConnectGroup>(val.m_connectGroup, (NetInfo.ConnectGroup)67895699), "(OnewayEnd) unexpected nodeInfo.m_connectGroup=" + (object)info.m_connectGroup.ToString());
 						orCreateSubFamily.OneWayEnd = val;
 					}
 					else if ((int)val2 == 12288)
 					{
-						Assertion.Assert(EnumExtensions.IsFlagSet<ConnectGroup>(val.m_connectGroup, (ConnectGroup)3148332), "(Oneway) unexpected nodeInfo.m_connectGroup=" + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(info.m_connectGroup)/*cast due to .constrained prefix*/).ToString());
+						Assertion.Assert(EnumExtensions.IsFlagSet<NetInfo.ConnectGroup>(val.m_connectGroup, (NetInfo.ConnectGroup)3148332), "(Oneway) unexpected nodeInfo.m_connectGroup=" + (object)info.m_connectGroup.ToString());
 						orCreateSubFamily.OneWay = val;
 					}
-					else if (EnumExtensions.IsFlagSet<ConnectGroup>(val.m_connectGroup, (ConnectGroup)3148332))
+					else if (EnumExtensions.IsFlagSet<NetInfo.ConnectGroup>(val.m_connectGroup, (NetInfo.ConnectGroup)3148332))
 					{
 						orCreateSubFamily.OneWay = val;
 					}
 				}
 				else
 				{
-					if (!EnumExtensions.IsFlagSet<ConnectGroup>(info.m_connectGroup, (ConnectGroup)132160))
+					if (!EnumExtensions.IsFlagSet<NetInfo.ConnectGroup>(info.m_connectGroup, (NetInfo.ConnectGroup)132160))
 					{
-						throw new Exception("unexpected info.m_connectGroup=" + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(info.m_connectGroup)/*cast due to .constrained prefix*/).ToString());
+						throw new Exception("unexpected info.m_connectGroup=" + (object)info.m_connectGroup.ToString());
 					}
-					Assertion.Assert((int)val2 == 0, "(STATION) expected oneway=0 got " + ((object)System.Runtime.CompilerServices.Unsafe.As<ConnectGroup, ConnectGroup>(info.m_connectGroup)/*cast due to .constrained prefix*/).ToString());
-					if (EnumExtensions.IsFlagSet<ConnectGroup>(val.m_connectGroup, (ConnectGroup)67895699))
+					Assertion.Assert((int)val2 == 0, "(STATION) expected oneway=0 got " + (object)info.m_connectGroup.ToString());
+					if (EnumExtensions.IsFlagSet<NetInfo.ConnectGroup>(val.m_connectGroup, (NetInfo.ConnectGroup)67895699))
 					{
 						orCreateSubFamily.StationDouble = val;
 					}
-					else if (EnumExtensions.IsFlagSet<ConnectGroup>(val.m_connectGroup, (ConnectGroup)132160))
+					else if (EnumExtensions.IsFlagSet<NetInfo.ConnectGroup>(val.m_connectGroup, (NetInfo.ConnectGroup)132160))
 					{
 						orCreateSubFamily.Station = val;
 					}
@@ -162,7 +128,7 @@ public class TrackFamily
 		}
 		bool flag = !trackFamily.IsConsistent;
 		bool flag2 = trackFamily.IsHopefull();
-		string[] value = infos.Select((NetInfo info) => ((Object)info).name).ToArray();
+		string[] value = infos.Select((NetInfo info) => ((UnityEngine.Object)info).name).ToArray();
 		string text = "{" + string.Join(", ", value) + "}";
 		Dictionary<NodeInfoClass, NodeInfoFamily>.ValueCollection values = trackFamily.SubFamilyDict.Values;
 		IEnumerable<string> source = values.Select((NodeInfoFamily _subFamily) => _subFamily.ToString());

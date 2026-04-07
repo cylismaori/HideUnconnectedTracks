@@ -159,7 +159,7 @@ public static class MeshExt
 		for (int i = 0; i < lMesh.subMeshCount; i++)
 		{
 			int[] triangles = lMesh.GetTriangles(i);
-			OBJGroup oBJGroup = new OBJGroup(((Object)lMesh).name + "_" + i);
+			OBJGroup oBJGroup = new OBJGroup(((UnityEngine.Object)lMesh).name + "_" + i);
 			for (int j = 0; j < triangles.Length; j += 3)
 			{
 				OBJFace oBJFace = new OBJFace();
@@ -360,7 +360,7 @@ public static class MeshExt
 		Vector3[] vertices = lMesh.vertices;
 		Int32Converter int32Converter = vertices.Length;
 		int num8 = vertices.Length * num2;
-		Array.Resize(array, num7 + num8);
+		Array.Resize(ref array, num7 + num8);
 		GCHandle gCHandle = GCHandle.Alloc(vertices, GCHandleType.Pinned);
 		Marshal.Copy(gCHandle.AddrOfPinnedObject(), array, num7, num8);
 		gCHandle.Free();
@@ -370,7 +370,7 @@ public static class MeshExt
 		{
 			flag = true;
 			num8 = uv.Length * num;
-			Array.Resize(array, num7 + num8);
+			Array.Resize(ref array, num7 + num8);
 			gCHandle = GCHandle.Alloc(uv, GCHandleType.Pinned);
 			Marshal.Copy(gCHandle.AddrOfPinnedObject(), array, num7, num8);
 			gCHandle.Free();
@@ -381,7 +381,7 @@ public static class MeshExt
 		{
 			flag2 = true;
 			num8 = uv.Length * num;
-			Array.Resize(array, num7 + num8);
+			Array.Resize(ref array, num7 + num8);
 			gCHandle = GCHandle.Alloc(uv, GCHandleType.Pinned);
 			Marshal.Copy(gCHandle.AddrOfPinnedObject(), array, num7, num8);
 			gCHandle.Free();
@@ -392,7 +392,7 @@ public static class MeshExt
 		{
 			flag3 = true;
 			num8 = uv.Length * num;
-			Array.Resize(array, num7 + num8);
+			Array.Resize(ref array, num7 + num8);
 			gCHandle = GCHandle.Alloc(uv, GCHandleType.Pinned);
 			Marshal.Copy(gCHandle.AddrOfPinnedObject(), array, num7, num8);
 			gCHandle.Free();
@@ -403,7 +403,7 @@ public static class MeshExt
 		{
 			flag4 = true;
 			num8 = normals.Length * num2;
-			Array.Resize(array, num7 + num8);
+			Array.Resize(ref array, num7 + num8);
 			gCHandle = GCHandle.Alloc(normals, GCHandleType.Pinned);
 			Marshal.Copy(gCHandle.AddrOfPinnedObject(), array, num7, num8);
 			gCHandle.Free();
@@ -414,7 +414,7 @@ public static class MeshExt
 		{
 			flag5 = true;
 			num8 = tangents.Length * num3;
-			Array.Resize(array, num7 + num8);
+			Array.Resize(ref array, num7 + num8);
 			gCHandle = GCHandle.Alloc(tangents, GCHandleType.Pinned);
 			Marshal.Copy(gCHandle.AddrOfPinnedObject(), array, num7, num8);
 			gCHandle.Free();
@@ -425,7 +425,7 @@ public static class MeshExt
 		{
 			flag6 = true;
 			num8 = colors.Length * num6;
-			Array.Resize(array, num7 + num8);
+			Array.Resize(ref array, num7 + num8);
 			gCHandle = GCHandle.Alloc(colors, GCHandleType.Pinned);
 			Marshal.Copy(gCHandle.AddrOfPinnedObject(), array, num7, num8);
 			gCHandle.Free();
@@ -436,7 +436,7 @@ public static class MeshExt
 		{
 			flag7 = true;
 			num8 = bindposes.Length * num4;
-			Array.Resize(array, num7 + num8);
+			Array.Resize(ref array, num7 + num8);
 			gCHandle = GCHandle.Alloc(bindposes, GCHandleType.Pinned);
 			Marshal.Copy(gCHandle.AddrOfPinnedObject(), array, num7, num8);
 			gCHandle.Free();
@@ -447,7 +447,7 @@ public static class MeshExt
 		{
 			flag8 = true;
 			num8 = boneWeights.Length * num5;
-			Array.Resize(array, num7 + num8);
+			Array.Resize(ref array, num7 + num8);
 			gCHandle = GCHandle.Alloc(boneWeights, GCHandleType.Pinned);
 			Marshal.Copy(gCHandle.AddrOfPinnedObject(), array, num7, num8);
 			gCHandle.Free();
@@ -456,7 +456,7 @@ public static class MeshExt
 		int[] triangles = lMesh.triangles;
 		Int32Converter int32Converter2 = triangles.Length;
 		num8 = triangles.Length * 4;
-		Array.Resize(array, num7 + num8);
+		Array.Resize(ref array, num7 + num8);
 		Buffer.BlockCopy(triangles, 0, array, num7, num8);
 		num7 += num8;
 		Int32Converter int32Converter3 = lMesh.subMeshCount;
@@ -465,7 +465,7 @@ public static class MeshExt
 			triangles = lMesh.GetTriangles(i);
 			Int32Converter int32Converter4 = triangles.Length;
 			num8 = 4 + triangles.Length * 4;
-			Array.Resize(array, num7 + num8);
+			Array.Resize(ref array, num7 + num8);
 			array[num7] = int32Converter4.Byte1;
 			array[num7 + 1] = int32Converter4.Byte2;
 			array[num7 + 2] = int32Converter4.Byte3;
@@ -498,7 +498,7 @@ public static class MeshExt
 		//IL_0001: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0007: Expected O, but got Unknown
 		Mesh val = new Mesh();
-		((Object)val).name = "clone";
+		((UnityEngine.Object)val).name = "clone";
 		val.vertices = mesh.vertices;
 		val.triangles = mesh.triangles;
 		val.normals = mesh.normals;

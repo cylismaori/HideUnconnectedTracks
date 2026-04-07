@@ -10,7 +10,7 @@ namespace HideUnconnectedTracks;
 
 public static class NodeInfoLUT
 {
-	public static Dictionary<Node, NodeInfoFamily> LUT = new Dictionary<Node, NodeInfoFamily>(10000);
+	public static Dictionary<NetInfo.Node, NodeInfoFamily> LUT = new Dictionary<NetInfo.Node, NodeInfoFamily>(10000);
 
 	public static readonly string[] BuiltInFamilies = new string[4] { "Train Track,Train Oneway Track,Train Station Track", "Monorail Station Track,Monorail Track,Monorail Oneway Track", "Metro Station Track Ground 01,Metro Track Ground 01", "1574857232.R69Railway GrCo 2x2 S_Data, 1574857232.R69Railway GrCo 1x1_Data, 1574857232.R69Railway GrCo 2x2_Data" };
 
@@ -71,12 +71,12 @@ public static class NodeInfoLUT
 		for (uint num2 = 0u; num2 < num; num2++)
 		{
 			NetInfo loaded = PrefabCollection<NetInfo>.GetLoaded(num2);
-			if (loaded.m_netAI is RoadBaseAI || (Object)(object)loaded == (Object)null || !loaded.m_requireDirectRenderers || EnumExtensions.IsFlagSet<ConnectGroup>(loaded.m_connectGroup, (ConnectGroup)3280492) || !EnumExtensions.IsFlagSet<ConnectGroup>(loaded.m_connectGroup, (ConnectGroup)67895699))
+			if (loaded.m_netAI is RoadBaseAI || (Object)(object)loaded == (Object)null || !loaded.m_requireDirectRenderers || EnumExtensions.IsFlagSet<NetInfo.ConnectGroup>(loaded.m_connectGroup, (NetInfo.ConnectGroup)3280492) || !EnumExtensions.IsFlagSet<NetInfo.ConnectGroup>(loaded.m_connectGroup, (NetInfo.ConnectGroup)67895699))
 			{
 				continue;
 			}
-			Node[] nodes = loaded.m_nodes;
-			foreach (Node val in nodes)
+			NetInfo.Node[] nodes = loaded.m_nodes;
+			foreach (NetInfo.Node val in nodes)
 			{
 				if (val.m_directConnect && (int)val.m_connectGroup == 0)
 				{
@@ -117,15 +117,15 @@ public static class NodeInfoLUT
 		for (uint num5 = 0u; num5 < num; num5++)
 		{
 			NetInfo loaded = PrefabCollection<NetInfo>.GetLoaded(num5);
-			if ((Object)(object)loaded == (Object)null || !EnumExtensions.IsFlagSet<ConnectGroup>(loaded.m_connectGroup, (ConnectGroup)67895699))
+			if ((Object)(object)loaded == (Object)null || !EnumExtensions.IsFlagSet<NetInfo.ConnectGroup>(loaded.m_connectGroup, (NetInfo.ConnectGroup)67895699))
 			{
 				continue;
 			}
 			bool flag = false;
-			Node[] nodes = loaded.m_nodes;
-			foreach (Node val in nodes)
+			NetInfo.Node[] nodes = loaded.m_nodes;
+			foreach (NetInfo.Node val in nodes)
 			{
-				if (val.m_directConnect && !LUT.ContainsKey(val) && EnumExtensions.IsFlagSet<ConnectGroup>(val.m_connectGroup, (ConnectGroup)67895699) && DCUtil.IsTrack(val, loaded))
+				if (val.m_directConnect && !LUT.ContainsKey(val) && EnumExtensions.IsFlagSet<NetInfo.ConnectGroup>(val.m_connectGroup, (NetInfo.ConnectGroup)67895699) && DCUtil.IsTrack(val, loaded))
 				{
 					if (GenerateDoubleTrackLUT(val))
 					{
@@ -144,7 +144,7 @@ public static class NodeInfoLUT
 			}
 		}
 		Log.Info("GenerateDoubleTrackLUT() successful.\n" + $"generated:{num2} recycled:{num3} pairs of half tracks for {num4} track prefabs");
-		static bool GenerateDoubleTrackLUT(Node nodeInfo)
+		static bool GenerateDoubleTrackLUT(NetInfo.Node nodeInfo)
 		{
 			NodeInfoFamily nodeInfoFamily = new NodeInfoFamily
 			{
@@ -164,13 +164,13 @@ public static class NodeInfoLUT
 		for (uint num2 = 0u; num2 < num; num2++)
 		{
 			NetInfo loaded = PrefabCollection<NetInfo>.GetLoaded(num2);
-			if ((Object)(object)loaded == (Object)null || !EnumExtensions.IsFlagSet<ConnectGroup>(loaded.m_connectGroup, (ConnectGroup)132160))
+			if ((Object)(object)loaded == (Object)null || !EnumExtensions.IsFlagSet<NetInfo.ConnectGroup>(loaded.m_connectGroup, (NetInfo.ConnectGroup)132160))
 			{
 				continue;
 			}
 			bool flag = false;
-			Node[] nodes = loaded.m_nodes;
-			foreach (Node val in nodes)
+			NetInfo.Node[] nodes = loaded.m_nodes;
+			foreach (NetInfo.Node val in nodes)
 			{
 				if (val.m_directConnect && !LUT.ContainsKey(val) && DCUtil.IsTrack(val, loaded))
 				{
@@ -182,7 +182,7 @@ public static class NodeInfoLUT
 				Log.Info("Recycled half track meshes for station track: " + ((Object)loaded).name);
 			}
 		}
-		static bool Recycle(NetInfo info, Node nodeInfo)
+		static bool Recycle(NetInfo info, NetInfo.Node nodeInfo)
 		{
 			//IL_0031: Unknown result type (might be due to invalid IL or missing references)
 			//IL_0052: Unknown result type (might be due to invalid IL or missing references)
@@ -194,17 +194,17 @@ public static class NodeInfoLUT
 			}
 			NodeInfoFamily nodeInfoFamily2 = new NodeInfoFamily();
 			nodeInfoFamily2.FillInTheBlanks(nodeInfoFamily);
-			if (EnumExtensions.IsFlagSet<ConnectGroup>(nodeInfo.m_connectGroup, (ConnectGroup)67895699))
+			if (EnumExtensions.IsFlagSet<NetInfo.ConnectGroup>(nodeInfo.m_connectGroup, (NetInfo.ConnectGroup)67895699))
 			{
 				nodeInfoFamily2.StationDouble = nodeInfo;
 			}
-			else if (EnumExtensions.IsFlagSet<ConnectGroup>(nodeInfo.m_connectGroup, (ConnectGroup)3148332))
+			else if (EnumExtensions.IsFlagSet<NetInfo.ConnectGroup>(nodeInfo.m_connectGroup, (NetInfo.ConnectGroup)3148332))
 			{
 				nodeInfoFamily2.StationSingle = nodeInfo;
 			}
 			else
 			{
-				if (!EnumExtensions.IsFlagSet<ConnectGroup>(nodeInfo.m_connectGroup, (ConnectGroup)132160))
+				if (!EnumExtensions.IsFlagSet<NetInfo.ConnectGroup>(nodeInfo.m_connectGroup, (NetInfo.ConnectGroup)132160))
 				{
 					return false;
 				}

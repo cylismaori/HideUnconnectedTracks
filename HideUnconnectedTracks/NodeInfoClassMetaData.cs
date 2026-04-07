@@ -7,9 +7,9 @@ public struct NodeInfoClassMetaData
 {
 	public NodeInfoClass NodeInfoClass;
 
-	public ConnectGroup ConnectGroup;
+	public NetInfo.ConnectGroup ConnectGroup;
 
-	public bool Matches(Node nodeInfo)
+	public bool Matches(NetInfo.Node nodeInfo)
 	{
 		//IL_0020: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0026: Unknown result type (might be due to invalid IL or missing references)
@@ -17,7 +17,7 @@ public struct NodeInfoClassMetaData
 		return ConnectGroup == nodeInfo.m_connectGroup && NodeInfoClass.Equals(nodeInfoClass);
 	}
 
-	public static int Count(IEnumerable<NodeInfoClassMetaData> nodeClasses, Node nodeInfo)
+	public static int Count(IEnumerable<NodeInfoClassMetaData> nodeClasses, NetInfo.Node nodeInfo)
 	{
 		return nodeClasses.Count((NodeInfoClassMetaData nodeInfoClassMetaData) => nodeInfoClassMetaData.Matches(nodeInfo));
 	}

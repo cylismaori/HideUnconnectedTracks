@@ -3,7 +3,6 @@ using ColossalFramework.Math;
 using KianCommons;
 using System;
 using UnityEngine;
-using KianCommons;
 
 namespace KianCommons.StockCode {
     class NetAI2: NetAI {

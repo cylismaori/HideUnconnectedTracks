@@ -5,11 +5,13 @@ using KianCommons;
 using System;
 
 namespace KianCommons.StockCode {
-    public partial struct NetNode2 {
+    public partial struct NetNode2
+    {
         public NetInfo Info => null;
         public ushort GetSegment(int i) => 0;
         public NetNode.Flags m_flags;
-        public Notification.Problem m_problems;
+        public Notification.Problem1 m_problems1;
+        public Notification.Problem2 m_problems2;
         public float m_heightOffset;
         public Bounds m_bounds;
         Vector3 m_position;
@@ -75,7 +77,8 @@ namespace KianCommons.StockCode {
 
         public void PopulateGroupData(ushort nodeID, int groupX, int groupZ, int layer, ref int vertexIndex, ref int triangleIndex, Vector3 groupPosition, RenderGroup.MeshData data, ref Vector3 min, ref Vector3 max, ref float maxRenderDistance, ref float maxInstanceDistance, ref bool requireSurfaceMaps) {
             NetInfo info = this.Info;
-            if (this.m_problems != Notification.Problem.None && layer == Singleton<NotificationManager>.instance.m_notificationLayer && (this.m_flags & NetNode.Flags.Temporary) == NetNode.Flags.None) {
+            if ((this.m_problems1 != Notification.Problem1.None && layer == Singleton<NotificationManager>.instance.m_notificationLayer && (this.m_flags & NetNode.Flags.Temporary) == NetNode.Flags.None) ||
+                (this.m_problems2 != Notification.Problem2.None && layer == Singleton<NotificationManager>.instance.m_notificationLayer && (this.m_flags & NetNode.Flags.Temporary) == NetNode.Flags.None)) {
                 Vector3 position = this.m_position;
                 position.y += info.m_maxHeight;
                 Notification.PopulateGroupData(this.m_problems, position, 1f, groupX, groupZ, ref vertexIndex, ref triangleIndex, groupPosition, data, ref min, ref max, ref maxRenderDistance, ref maxInstanceDistance);

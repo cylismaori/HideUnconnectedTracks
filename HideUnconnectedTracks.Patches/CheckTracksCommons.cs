@@ -49,10 +49,6 @@ public static class CheckTracksCommons
 
 	public static void ApplyCheckTracks(List<CodeInstruction> codes, MethodBase method, int occurance)
 	{
-		//IL_00d7: Unknown result type (might be due to invalid IL or missing references)
-		//IL_00dd: Expected O, but got Unknown
-		//IL_00ef: Unknown result type (might be due to invalid IL or missing references)
-		//IL_00f5: Expected O, but got Unknown
 		int startIndex = 0;
 		startIndex = codes.Search((CodeInstruction _c) => _c.Calls(mCheckRenderDistance), startIndex, occurance);
 		Assertion.Assert(startIndex != 0, "index!=0");
