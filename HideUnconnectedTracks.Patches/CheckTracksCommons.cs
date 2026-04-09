@@ -72,6 +72,7 @@ public static class CheckTracksCommons
             new CodeInstruction(OpCodes.Call, (object)mShouldConnectTracks),
             new CodeInstruction(OpCodes.Brfalse, (object)continueIndex)
         };
+        TranspilerUtils.InsertInstructions(codes, insertion, startIndex);
     }
 
 	public static CodeInstruction Build_LDLocA_NodeInfo(List<CodeInstruction> codes, int index, int counter, int dir)
