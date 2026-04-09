@@ -169,7 +169,6 @@ namespace KianCommons.Patches {
             }
         }
 
-
         //[Obsolete("use harmony extension instead")]
         public static bool IsLdLoc(CodeInstruction instruction) {
             return (instruction.opcode == OpCodes.Ldloc_0 || instruction.opcode == OpCodes.Ldloc_1 ||

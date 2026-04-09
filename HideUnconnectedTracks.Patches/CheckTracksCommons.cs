@@ -59,22 +59,26 @@ public static class CheckTracksCommons
 		startIndex = codes.Search((CodeInstruction _c) => CodeInstructionExtensions.IsLdarg(_c, (int?)loc_cameraInfo), startIndex, -1);
 		Label? continueIndex = null;
 		codes.Search((CodeInstruction _c) => CodeInstructionExtensions.Branches(_c, out continueIndex), startIndex, -1);
+        Log.Info("ApplyCheckTracks: Val: "+val.ToString()+" | Val2: "+val2.ToString());
+
 		CodeInstruction[] insertion = (CodeInstruction[])(object)new CodeInstruction[6]
-		{
+        {
 			TranspilerUtils.GetLDArg(method, "nodeID"),
 			TranspilerUtils.GetLDArg(method, "data"),
 			val,
 			val2,
 			new CodeInstruction(OpCodes.Call, (object)mShouldConnectTracks),
 			new CodeInstruction(OpCodes.Brfalse, (object)continueIndex)
-		};
-		TranspilerUtils.InsertInstructions(codes, insertion, startIndex);
-	}
+        };
+        TranspilerUtils.InsertInstructions(codes, insertion, startIndex);
+
+       
+    }
 
 	public static CodeInstruction Build_LDLocA_NodeInfo(List<CodeInstruction> codes, int index, int counter, int dir)
 	{
-        index = TranspilerUtils.SearchGeneric(codes, idx => TranspilerUtils.IsSameInstruction(codes[idx], new CodeInstruction(OpCodes.Ldfld, (object)fNodes)), index, dir, counter);
-        //index = TranspilerUtils.SearchInstruction(codes, new CodeInstruction(OpCodes.Ldfld, (object)fNodes), index, dir, counter);
+        //index = TranspilerUtils.SearchGeneric(codes, idx => TranspilerUtils.IsSameInstruction(codes[idx], new CodeInstruction(OpCodes.Ldfld, (object)fNodes)), index, dir, counter);
+        index = TranspilerUtils.SearchInstruction(codes, new CodeInstruction(OpCodes.Ldfld, (object)fNodes), index, dir, counter);
         CodeInstruction val = codes[index + 3];
 		Assertion.Assert(CodeInstructionExtensions.IsStloc(val, (LocalBuilder)null), $"IsStLoc(code) | code={val}");
 		return new CodeInstruction(OpCodes.Ldloca_S, val.operand);
@@ -82,9 +86,9 @@ public static class CheckTracksCommons
 
 	public static CodeInstruction Build_LDLocA_DataVector0(List<CodeInstruction> codes, int index, int counter, int dir)
 	{
-        index = TranspilerUtils.SearchGeneric(codes, idx => TranspilerUtils.IsSameInstruction(codes[idx], new CodeInstruction(OpCodes.Ldfld, (object)fDataVector0)), index, dir, counter);
-        //index = TranspilerUtils.SearchInstruction(codes, new CodeInstruction(OpCodes.Ldfld, (object)fDataVector0), index, dir, counter);
-		CodeInstruction val = codes[index + 1];
+        //index = TranspilerUtils.SearchGeneric(codes, idx => TranspilerUtils.IsSameInstruction(codes[idx], new CodeInstruction(OpCodes.Ldfld, (object)fDataVector0)), index, dir, counter);
+        index = TranspilerUtils.SearchInstruction(codes, new CodeInstruction(OpCodes.Ldfld, (object)fDataVector0), index, dir, counter);
+        CodeInstruction val = codes[index + 1];
 		Assertion.Assert(CodeInstructionExtensions.IsStloc(val, (LocalBuilder)null), $"IsStLoc(code) | code={val}");
 		return new CodeInstruction(OpCodes.Ldloca_S, val.operand);
 	}
